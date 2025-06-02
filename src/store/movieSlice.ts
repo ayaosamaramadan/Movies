@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 interface MovieState {
   page: number;
@@ -18,11 +18,9 @@ const movieSlice = createSlice({
     prevPage(state) {
       if (state.page > 1) state.page -= 1;
     },
-    setPage(state, action: PayloadAction<number>) {
-      state.page = action.payload;
-    },
+   
   },
 });
 
-export const { nextPage, prevPage, setPage } = movieSlice.actions;
+export const { nextPage, prevPage } = movieSlice.actions;
 export default movieSlice.reducer;

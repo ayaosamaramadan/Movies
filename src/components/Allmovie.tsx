@@ -1,17 +1,12 @@
 "use client";
 import Image from "next/image";
-import { fetchAllMovies } from "@/fetchapi";
+import { fetchAllMovies } from "@/api/fetchapi";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { nextPage, prevPage } from "@/store/movieSlice";
+import { Movie } from "@/types/movietype";
 
-interface Movie {
-  id: number;
-  title: string;
-  release_date: string;
-  poster_path?: string;
-}
 
 const Allmovie = () => {
   const dispatch = useDispatch();

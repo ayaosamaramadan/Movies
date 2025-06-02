@@ -1,12 +1,12 @@
 import Allmovie from "@/components/Allmovie";
-
+import Searchmovie from "@/components/Searchmovie";
 
 export default function Home() {
  
 
   return (
     <>
-      <h1>Movie Search Results</h1>
+      <Searchmovie/>
     <Allmovie />
     </>
   );
