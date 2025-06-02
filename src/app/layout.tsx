@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-
-
+import ReduxProvider from "@/components/providers/ReduxProvider";
+import ClientProvider from "@/components/providers/ClientProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,9 +15,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-     >
-        {children}
+      <body>
+        <ReduxProvider>
+          <ClientProvider>{children}</ClientProvider>
+        </ReduxProvider>
       </body>
     </html>
   );
