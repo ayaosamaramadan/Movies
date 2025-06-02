@@ -2,6 +2,9 @@
 import Image from "next/image";
 import { fetchAllMovies } from "@/fetchapi";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import { nextPage, prevPage } from "@/store/movieSlice";
 
 interface Movie {
   id: number;
@@ -11,15 +14,17 @@ interface Movie {
 }
 
 const Allmovie = () => {
+  const dispatch = useDispatch();
+  const page = useSelector((state: RootState) => state.movies.page);
   const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setLoading(true);
-    fetchAllMovies()
+    fetchAllMovies(page)
       .then((results: Movie[]) => setMovies(results))
       .finally(() => setLoading(false));
-  }, []);
+  }, [page]);
 
   return (
     <>
@@ -27,7 +32,22 @@ const Allmovie = () => {
         <p>Loading...</p>
       ) : (
         <>
-        
+          <div className="flex justify-between mb-4">
+            <button
+              onClick={() => dispatch(prevPage())}
+              className="tbtn tbtn-outline cursor-pointer"
+              disabled={page === 1}
+            >
+              Previous
+            </button>
+            <span>Page {page}</span>
+            <button
+              onClick={() => dispatch(nextPage())}
+              className="tbtn tbtn-outline cursor-pointer"
+            >
+              Next
+            </button>
+          </div>
           <ul className="flex flex-wrap gap-4">
             {movies.map((movie) => (
               <li
