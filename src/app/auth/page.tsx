@@ -4,6 +4,8 @@ import axios from "axios";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
+import { FaGithub } from "react-icons/fa";
+
 const Auth = () => { 
     const router = useRouter();
     const [isLogin, setIsLogin] = useState(true);
@@ -96,6 +98,17 @@ const Auth = () => {
                     className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400"
                     placeholder="Enter your password"
                 />
+                </div>
+                <div className="flex">
+                 
+                    <button
+                    onClick={() => signIn("github", { callbackUrl: "/" })}
+                        title="btn"
+                        type="button"
+                        className="cursor-pointer flex-1 bg-white hover:bg-gray-100 text-gray-700 font-semibold py-2 rounded-lg flex items-center justify-center space-x-1 transition duration-200"
+                    >
+                        <FaGithub />
+                    </button>
                 </div>
                 <button 
                 type="submit"
