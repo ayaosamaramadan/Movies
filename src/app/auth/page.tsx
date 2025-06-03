@@ -3,7 +3,7 @@ import React, { useCallback, useState } from "react";
 import axios from "axios";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-
+import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 
 const Auth = () => { 
@@ -100,7 +100,14 @@ const Auth = () => {
                 />
                 </div>
                 <div className="flex">
-                 
+                    <button
+                        onClick={() => signIn("google", { callbackUrl: "/" })}
+                        title="btn"
+                        type="button"
+                        className="flex-1 bg-white hover:bg-gray-100 cursor-pointer text-gray-700 font-semibold rounded-lg flex items-center justify-center transition duration-200"
+                    >
+                        <FcGoogle />
+                    </button>
                     <button
                     onClick={() => signIn("github", { callbackUrl: "/" })}
                         title="btn"
