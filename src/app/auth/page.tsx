@@ -1,6 +1,7 @@
 "use client";
 import React, { useCallback, useState } from "react";
 import axios from "axios";
+import { signIn } from "next-auth/react";
 
 const Auth = () => { 
     const [isLogin, setIsLogin] = useState(true);
@@ -25,6 +26,21 @@ const Auth = () => {
             console.error("Error during registration:", error);
         }
     }, [ name, email, password ]);
+
+
+    const login = useCallback(async () => {
+        try {
+            await signIn("credentials", {
+                email,
+                password,
+                redirect: false,
+                callbackUrl: "/",
+            });
+           
+        } catch (error) {
+            console.error("Error during login:", error);
+        }
+    }, [email, password]);  
 
     return (
       <>
@@ -74,7 +90,7 @@ const Auth = () => {
                 </div>
                 <button 
                 type="submit"
-                onClick={register}
+                onClick={isLogin ? login : register}
                 className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 rounded-lg transition duration-200"
                 >
                 {isLogin ? "Login" : "Sign Up"}

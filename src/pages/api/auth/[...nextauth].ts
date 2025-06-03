@@ -25,9 +25,12 @@ export default NextAuth({
           throw new Error("Invalid email or password");
         }
 
+        if (!user.hashedPassword) {
+          throw new Error("Invalid email or password");
+        }
         const isCorrectPassword = await compare(
           credentials.password,
-          user.password
+          user.hashedPassword
         );
 
         if (!isCorrectPassword) {
