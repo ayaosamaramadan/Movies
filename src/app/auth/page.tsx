@@ -2,8 +2,10 @@
 import React, { useCallback, useState } from "react";
 import axios from "axios";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const Auth = () => { 
+    const router = useRouter();
     const [isLogin, setIsLogin] = useState(true);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -14,21 +16,8 @@ const Auth = () => {
         alert(isLogin ? "Logging in..." : "Signing up...");
     };
 
-    const register = useCallback(async () => {
-        try {
-            const response = await axios.post("/api/register", {
-                name,
-                email,
-                password,
-            });
-            console.log("Registration successful:", response.data);
-        } catch (error) {
-            console.error("Error during registration:", error);
-        }
-    }, [ name, email, password ]);
 
-
-    const login = useCallback(async () => {
+       const login = useCallback(async () => {
         try {
             await signIn("credentials", {
                 email,
@@ -36,12 +25,32 @@ const Auth = () => {
                 redirect: false,
                 callbackUrl: "/",
             });
+
+            router.push("/");
            
         } catch (error) {
             console.error("Error during login:", error);
         }
-    }, [email, password]);  
+    }, [email, password, router]);  
 
+
+    const register = useCallback(async () => {
+        try {
+            const response = await axios.post("/api/register", {
+                name,
+                email,
+                password,
+            });
+
+            login(); 
+            console.log("Registration successful:", response.data);
+        } catch (error) {
+            console.error("Error during registration:", error);
+        }
+    }, [ name, email, password , login]);
+
+
+ 
     return (
       <>
         <div className="flex items-center justify-center min-h-screen">
