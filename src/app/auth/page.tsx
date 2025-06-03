@@ -1,5 +1,6 @@
 "use client";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
+import axios from "axios";
 
 const Auth = () => { 
     const [isLogin, setIsLogin] = useState(true);
@@ -11,6 +12,19 @@ const Auth = () => {
         e.preventDefault();
         alert(isLogin ? "Logging in..." : "Signing up...");
     };
+
+    const register = useCallback(async () => {
+        try {
+            const response = await axios.post("/api/register", {
+                name,
+                email,
+                password,
+            });
+            console.log("Registration successful:", response.data);
+        } catch (error) {
+            console.error("Error during registration:", error);
+        }
+    }, [ name, email, password ]);
 
     return (
       <>
@@ -60,6 +74,7 @@ const Auth = () => {
                 </div>
                 <button 
                 type="submit"
+                onClick={register}
                 className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 rounded-lg transition duration-200"
                 >
                 {isLogin ? "Login" : "Sign Up"}
