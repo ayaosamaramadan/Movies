@@ -1,13 +1,22 @@
-import Allmovie from "@/components/Allmovie";
-import Searchmovie from "@/components/Searchmovie";
+"use client";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import Homee from "@/pages/homee";
 
 export default function Home() {
- 
+  const { status } = useSession();
+  const router = useRouter();
 
-  return (
-    <>
-      <Searchmovie/>
-    <Allmovie />
-    </>
-  );
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/auth");
+    }
+  }, [status, router]);
+
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
+
+  return <Homee />;
 }
