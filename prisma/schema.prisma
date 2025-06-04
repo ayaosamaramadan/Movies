@@ -24,7 +24,7 @@ model User {
   hashedPassword String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  favorites  String[] @db.ObjectId
+  favorites String[] @default([])
   sessions  Session[]
   accounts  Account[]
 }
