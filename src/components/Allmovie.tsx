@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { nextPage, prevPage } from "@/store/movieSlice";
 import { Movie } from "@/types/movietype";
+import useCurrentUser from "../../hooks/useCurrentUser";
 
 
 const Allmovie = () => {
@@ -13,6 +14,8 @@ const Allmovie = () => {
   const page = useSelector((state: RootState) => state.movies.page);
   const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(true);
+
+  const { currentUser: user } = useCurrentUser();
 
   useEffect(() => {
     setLoading(true);
@@ -27,6 +30,9 @@ const Allmovie = () => {
         <p>Loading...</p>
       ) : (
         <>
+        <p>
+          Welcome {user?.name}! Here are the movies available:
+        </p>
           <div className="flex justify-between mb-4">
             <button
               onClick={() => dispatch(prevPage())}
