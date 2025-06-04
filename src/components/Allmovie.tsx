@@ -28,7 +28,7 @@ const Allmovie = () => {
 
   const handleAddToWatchlist = async (movieId: string) => {
     try {
-     await axios.post("/api/fav", { movieId:movieId });
+     await axios.post("/api/favorite/add", { movieId:movieId });
       alert("Added to watchlist!");
          // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
@@ -48,6 +48,10 @@ const Allmovie = () => {
 
           <Link href="/favorite" className="text-blue-600 hover:underline mb-4">
             View Your Watchlist
+          </Link>
+
+             <Link href="/watchlater" className="text-blue-600 hover:underline mb-4">
+            View Your Watchlater
           </Link>
 
           <div className="flex justify-between mb-4">
