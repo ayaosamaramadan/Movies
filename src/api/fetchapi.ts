@@ -37,3 +37,19 @@ export async function fetchMovieDetails(id: number) {
     const data = await response.json();
     return data;
 }
+
+export async function fetchAllMoviesAllPages() {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const allMovies: any[] = [];
+    let page = 1;
+    let totalPages = 1;
+
+    do {
+        const movies = await fetchAllMovies(page);
+        allMovies.push(...movies);
+        page++;
+        totalPages = Math.ceil(allMovies.length / 20); 
+    } while (page <= totalPages);
+
+    return allMovies;
+}
