@@ -45,8 +45,7 @@ const Watchlatepage = () => {
                   className="flex items-center gap-2 px-2 py-1 bg-white rounded shadow text-sm"
                 >
                   <span className="text-blue-600 hover:underline">
-                    {allMovies.find((m) => String(m.id) === watchId)?.title ||
-                      "Unknown Movie"}
+                    {allMovies.find((m) => String(m.id) === watchId)?.title}
                   </span>
 
                   <button
