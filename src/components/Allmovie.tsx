@@ -36,6 +36,15 @@ const Allmovie = () => {
     }
   };
 
+  const handleAddToWatchlater = async (movieId: string) => {
+    try {
+      await axios.post("/api/watchlaterr/add", { movieId: movieId });
+      alert("Added to watch later!");
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
+      alert("Failed to add to watch later");
+    }
+  };
   
 
   return (
@@ -99,8 +108,18 @@ const Allmovie = () => {
                   className="mt-2 px-3 py-1 bg-blue-600 text-white rounded disabled:bg-gray-400"
                 >
                   {user?.favorites?.includes(movie.id)
-                    ? "In Watchlist"
-                    : "Add to Watchlist"}
+                    ? "In favorites"
+                    : "Add favorites"}
+                </button>
+
+                <button
+                  onClick={() => handleAddToWatchlater(String(movie.id))}
+                  disabled={user?.watchlist?.includes(movie.id)}
+                  className="mt-2 px-3 py-1 bg-blue-600 text-white rounded disabled:bg-gray-400"
+                >
+                  {user?.watchlist?.includes(movie.id)
+                    ? "In Watchlater"
+                    : "Add Watchlater"}
                 </button>
               </li>
             ))}

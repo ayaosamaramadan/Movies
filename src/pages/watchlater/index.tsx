@@ -25,7 +25,7 @@ const Watchlatepage = () => {
 
   const handleRovWatchlist = async (movieId: string) => {
     try {
-      await axios.delete("/api/watchlate/remove", { data: { movieId } });
+      await axios.delete("/api/watchlaterr/remove", { data: { movieId } });
       mutate();
     } catch (error) {
       console.error("Failed to remove from watchlist:", error);
@@ -35,7 +35,7 @@ const Watchlatepage = () => {
   return (
     <>
       <div className="mb-6 p-4 bg-gray-100 rounded">
-        <h2 className="text-lg font-bold mb-2">Your Watchlist</h2>
+        <h2 className="text-lg font-bold mb-2">Your Watchlater</h2>
         {user?.watchlater && user.watchlater.length > 0 ? (
           <ul className="flex flex-wrap gap-2">
             {user.watchlater.map((watchId: string) => {
