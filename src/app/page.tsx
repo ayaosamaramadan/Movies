@@ -2,7 +2,7 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import Homee from "@/pages/homee";
+import Homee from "@/pages/page";
 
 export default function Home() {
   const { status } = useSession();

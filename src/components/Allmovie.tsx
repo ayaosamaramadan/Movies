@@ -7,6 +7,7 @@ import { RootState } from "@/store/store";
 import { nextPage, prevPage } from "@/store/movieSlice";
 import { Movie } from "@/types/movietype";
 import useCurrentUser from "../../hooks/useCurrentUser";
+import Link from "next/link";
 
 
 const Allmovie = () => {
@@ -55,7 +56,8 @@ const Allmovie = () => {
                 key={movie.id}
                 className="flex flex-col items-center w-40 tcard tcard-bordered"
               >
-                <Image
+              <Link href={`/movie/${movie.id}`} className="tcard-link">
+               <Image
                   src={
                     movie.poster_path
                       ? `https://image.tmdb.org/t/p/w200${movie.poster_path}`
@@ -67,6 +69,7 @@ const Allmovie = () => {
                   unoptimized
                   className="rounded tcard-img"
                 />
+                </Link>
                 <span className="mt-2 text-center tcard-title">
                   {movie.title} ({movie.release_date})
                 </span>
