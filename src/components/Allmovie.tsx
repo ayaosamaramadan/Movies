@@ -26,15 +26,7 @@ const Allmovie = () => {
       .finally(() => setLoading(false));
   }, [page]);
 
-  const handleAddToWatchlist = async (movieId: string) => {
-    try {
-     await axios.post("/api/favorite/add", { movieId:movieId });
-      alert("Added to watchlist!");
-         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (error) {
-      alert("Failed to add to watchlist");
-    }
-  };
+
 
   const handleAddToWatchlater = async (movieId: string) => {
     try {
@@ -53,15 +45,17 @@ const Allmovie = () => {
         <p>Loading...</p>
       ) : (
         <>
+          <Link
+          href="/profile"
+        >
+         <button> account</button>
+        </Link>
+        
           <p>Welcome {user?.name}! Here are the movies available:</p>
 
-          <Link href="/favorite" className="text-blue-600 hover:underline mb-4">
-            View Your Watchlist
-          </Link>
+        
 
-             <Link href="/watchlater" className="text-blue-600 hover:underline mb-4">
-            View Your Watchlater
-          </Link>
+       
 
           <div className="flex justify-between mb-4">
             <button
@@ -102,14 +96,16 @@ const Allmovie = () => {
                 <span className="mt-2 text-center font-semibold">
                   {movie.title} ({movie.release_date})
                 </span>
-                <button
-                  onClick={() => handleAddToWatchlist(String(movie.id))}
-                  disabled={user?.favorites?.includes(movie.id)}
+             
+
+                  <button
+                  // onClick={() => handleAddToWatchlater(String(movie.id))}
+                  disabled={user?.watchlist?.includes(movie.id)}
                   className="mt-2 px-3 py-1 bg-blue-600 text-white rounded disabled:bg-gray-400"
                 >
-                  {user?.favorites?.includes(movie.id)
-                    ? "In favorites"
-                    : "Add favorites"}
+                  {user?.watchlist?.includes(movie.id)
+                    ? "In Watchlater"
+                    : "Seen it"}
                 </button>
 
                 <button
@@ -119,7 +115,7 @@ const Allmovie = () => {
                 >
                   {user?.watchlist?.includes(movie.id)
                     ? "In Watchlater"
-                    : "Add Watchlater"}
+                    : "Want to See"}
                 </button>
               </li>
             ))}

@@ -1,9 +1,11 @@
 "use client";
 import { fetchAllMoviesAllPages } from "@/api/fetchapi";
-import { Movie } from "@/generated/prisma";
+import { Movie } from "@/types/movietype";
 import { useEffect, useState } from "react";
 import useCurrentUser from "../../../hooks/useCurrentUser";
 import axios from "axios";
+import Image from "next/image";
+import Navbar from "@/components/Navbar";
 
 const Watchlatepage = () => {
   const [allMovies, setAllMovies] = useState<Movie[]>([]);
@@ -34,6 +36,7 @@ const Watchlatepage = () => {
   };
   return (
     <>
+    <Navbar/>
       <div className="mb-6 p-4 bg-gray-100 rounded">
         <h2 className="text-lg font-bold mb-2">Your Watchlater</h2>
         {user?.watchlater && user.watchlater.length > 0 ? (
@@ -44,6 +47,25 @@ const Watchlatepage = () => {
                   key={watchId}
                   className="flex items-center gap-2 px-2 py-1 bg-white rounded shadow text-sm"
                 >
+
+                  <Image
+                    src={
+                      allMovies.find((m:Movie) => String(m.id) === watchId)
+                        ?.poster_path
+                        ? `https://image.tmdb.org/t/p/w200${
+                            allMovies.find((m) => String(m.id) === watchId)
+                              ?.poster_path
+                          }`
+                        : "/placeholder.png"
+                    }
+                    alt={
+                      allMovies.find((m) => String(m.id) === watchId)?.title ??
+                      "Movie poster"
+                    }
+                    width={50}
+                    height={75}
+                    unoptimized
+                  />
                   <span className="text-blue-600 hover:underline">
                     {allMovies.find((m) => String(m.id) === watchId)?.title}
                   </span>
