@@ -42,7 +42,7 @@ export async function fetchMovieDetails(id: number) {
 export async function fetchAllMoviesAllPages() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const allMovies: any[] = [];
-  const totalPages = 100; // أو العدد الفعلي للصفحات
+  const totalPages = 100;
 
   for (let page = 1; page <= totalPages; page++) {
     const movies = await fetchAllMovies(page);
@@ -50,4 +50,18 @@ export async function fetchAllMoviesAllPages() {
   }
 
   return allMovies;
+}
+
+export async function fetchMovieTrailer(movieId: string | number) {
+
+  const url = `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${API_KEY}`;
+  const response = await fetch(url);
+  if (!response.ok) throw new Error("Failed to fetch trailer");
+  const data = await response.json();
+
+  const trailer = data.results.find(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (vid: any) => vid.type === "Trailer" && vid.site === "YouTube"
+  );
+  return trailer ? `https://www.youtube.com/watch?v=${trailer.key}` : null;
 }

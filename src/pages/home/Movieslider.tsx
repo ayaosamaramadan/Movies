@@ -1,14 +1,20 @@
 import { fetchAllMovies } from "@/api/fetchapi";
 import { RootState } from "@/store/store";
 import { Movie } from "@/types/movietype";
+import axios from "axios";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+// import { FaRegHeart } from "react-icons/fa6";
 import { IoStarSharp } from "react-icons/io5";
 import { useSelector } from "react-redux";
 import Slider from "react-slick";
+import useCurrentUser from "../../../hooks/useCurrentUser";
+import { FaHeart, FaRegHeart } from "react-icons/fa6";
 
 const Movieslider = () => {
   const page = useSelector((state: RootState) => state.movies.page);
+
+  const { currentUser: user } = useCurrentUser();
 
   const [, setLoading] = useState(true);
   useEffect(() => {
@@ -29,6 +35,15 @@ const Movieslider = () => {
     autoplaySpeed: 2000,
   };
 
+    const handleAddToWatchlist = async (movieId: string) => {
+      try {
+       await axios.post("/api/favorite/add", { movieId:movieId });
+        alert("Added to watchlist!");
+           // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      } catch (error) {
+        alert("Failed to add to watchlist");
+      }
+    };
   return (
     <>
     <div className="flex items-center justify-between mt-10 mb-[-25px] w-[93%]">
@@ -58,7 +73,7 @@ const Movieslider = () => {
           {...settings}
           className="mt-10 max-w-4xl w-full"
         >
-          {movies.splice(0, 4).map((movie) => (
+          {movies.slice(0, 4).map((movie) => (
             <div key={movie.id} className="flex flex-col items-center group relative">
                 <div className="relative w-[170px] h-[300px]">
                 <Image
@@ -79,8 +94,19 @@ const Movieslider = () => {
                   <div className="flex gap-3 mt-4">
                     <p className="text-yellow-400 flex text-sm mt-1"> <IoStarSharp className="text-yellow-400 text-xl" />
                                   {movie.vote_average ?? "N/A"}</p>
-                    <button type="button" className="bg-transparent border border-white text-white px-4 py-2 rounded text-sm hover:text-blue-600 transition">Details</button>
-                  </div>
+                   
+                   
+
+                    <button
+                  onClick={() => handleAddToWatchlist(String(movie.id))}
+                  disabled={user?.favorites?.includes(movie.id)}
+                  className="mt-2 px-3 py-1 bg-blue-600 text-white rounded disabled:bg-gray-400"
+                >
+                    {user?.favorites?.includes(movie.id)
+                    ? <FaHeart className="text-red-500" />
+                    : <FaRegHeart className="text-white" />}
+                </button>
+                     </div>
                 </div>
                 </div>
             </div>

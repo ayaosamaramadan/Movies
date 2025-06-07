@@ -38,50 +38,79 @@ const Favouritepage = () => {
   return (
     <>
     <Navbar/>
-      <div className="mb-6 p-4 bg-gray-100 rounded">
-        
-        
-        <h2 className="text-lg font-bold mb-2">Your Watchlist</h2>
+      <div className="mb-6 p-4 rounded">
+        <h2 className="text-2xl font-extrabold mb-6 bg-gradient-to-r from-[#7f00d4] via-[#9e0cff] to-[#00fff2] bg-clip-text text-transparent drop-shadow-lg tracking-widest uppercase font-orbitron text-center">
+          Your Watchlist
+        </h2>
         {user?.favorites && user.favorites.length > 0 ? (
-          <ul className="flex flex-wrap gap-2">
-            {user.favorites.map((favId: string) => {
-              return (
-                <li
-                  key={favId}
-                  className="flex items-center gap-2 px-2 py-1 bg-white rounded shadow text-sm"
-                >
-                  <Image
-                    src={
-                      allMovies.find((m: Movie) => String(m.id) === favId)
-                        ?.poster_path
-                        ? `https://image.tmdb.org/t/p/w200${
-                            allMovies.find((m) => String(m.id) === favId)
-                              ?.poster_path
-                          }`
-                        : "/placeholder.png"
-                    }
-                    alt={
-                      allMovies.find((m) => String(m.id) === favId)?.title ??
-                      "Movie poster"
-                    }
-                    width={50}
-                    height={75}
-                    unoptimized
-                  />
-                  <span className="text-blue-600 hover:underline">
-                    {allMovies.find((m) => String(m.id) === favId)?.title}
-                  </span>
-
-                  <button
-                    onClick={() => handleRovWatchlist(String(favId))}
-                    className="ml-auto px-2 py-1 bg-red-500 text-white rounded text-xs"
-                  >
-                    X
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
+            <div className="flex flex-col gap-8">
+              {user.favorites.map((favId: string) => {
+                const movie = allMovies.find((m: Movie) => String(m.id) === favId);
+                if (!movie) return null;
+                return (
+                  <div key={movie.id} className="flex items-center justify-center px-2">
+                    <div
+                      className="flex w-full max-w-3xl rounded-3xl bg-gradient-to-br from-[#7f00d4] via-[#9e0cff85] to-[#ab42f1] shadow-2xl overflow-hidden min-h-[260px] transition-transform duration-300 hover:scale-105 hover:shadow-[0_8px_40px_10px_rgba(127,0,212,0.25)] group"
+                    >
+                      <div className="flex-shrink-0">
+                        <Image
+                          src={
+                            movie.poster_path
+                              ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+                              : "/placeholder.png"
+                          }
+                          alt={movie.title}
+                          width={180}
+                          height={260}
+                          className="rounded-l-3xl object-cover min-h-[260px] min-w-[180px] bg-black group-hover:brightness-110 group-hover:scale-105 transition-all duration-300"
+                          priority
+                          unoptimized
+                        />
+                      </div>
+                      <div className="flex flex-col justify-center px-8 py-6 flex-grow min-w-0">
+                        <p className="text-2xl font-bold tracking-wide text-white drop-shadow uppercase font-orbitron mb-2 truncate group-hover:text-[#00fff2] transition-colors duration-300">
+                          {movie.title}
+                        </p>
+                        <span className="text-base text-gray-300 mb-2 truncate group-hover:text-white transition-colors duration-300">
+                          {movie.release_date ? `Release: ${movie.release_date}` : "Release date unknown"}
+                        </span>
+                        <span className="text-base text-gray-300 mb-2 truncate group-hover:text-white transition-colors duration-300">
+                          {movie.original_language ? `Language: ${movie.original_language.toUpperCase()}` : ""}
+                        </span>
+                        <span className="text-base text-gray-300 mb-2 truncate group-hover:text-white transition-colors duration-300">
+                          {movie.genre_ids && movie.genre_ids.length > 0
+                            ? `Genres: ${movie.genre_ids.join(", ")}`
+                            : "Genres: N/A"}
+                        </span>
+                        <span className="text-2xl font-extrabold tracking-widest drop-shadow font-mono bg-gradient-to-r from-white via-white to-[#7f00d4] bg-clip-text text-transparent group-hover:from-[#00fff2] group-hover:to-[#7f00d4] transition-all duration-300">
+                          Popular <span className="text-[#00fff2]">#{movie.popularity}</span>
+                        </span>
+                        <span className="text-lg font-extrabold tracking-widest drop-shadow font-mono bg-gradient-to-r from-[#d3d3d3] via-white to-[#ffffff] bg-clip-text text-transparent group-hover:from-[#7f00d4] group-hover:to-[#00fff2] transition-all duration-300">
+                          Movies
+                        </span>
+                        <p className="text-base text-white mt-4 line-clamp-3 group-hover:line-clamp-none transition-all duration-300">
+                          {movie.overview || "No description available."}
+                        </p>
+                      </div>
+                      <div className="flex flex-col justify-end pr-8 pb-8 gap-4">
+                        <button
+                          type="button"
+                          className="bg-[#6716a1] text-white rounded-tl-2xl rounded-br-2xl border border-white px-0 cursor-pointer py-3 font-semibold shadow-lg hover:bg-[#7f00d4] hover:scale-105 hover:shadow-xl text-lg transition-all duration-300"
+                        >
+                          See Now
+                        </button>
+                        <button
+                          onClick={() => handleRovWatchlist(String(movie.id))}
+                          className="cursor-pointer bg-red-500 text-white rounded-tl-2xl rounded-br-2xl border border-white px-6 py-3 font-semibold shadow-lg hover:bg-red-600 hover:scale-105 hover:shadow-xl text-base transition-all duration-300"
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
         ) : (
           <p className="text-gray-500">No movies in your watchlist yet.</p>
         )}

@@ -32,7 +32,7 @@ const Favslider = () => {
    const sliderRef = useRef<Slider>(null);
   const settings = {
     dots: false,
-    infinite: true,
+    infinite: false,
     speed: 500,
     slidesToShow: 2,
     slidesToScroll: 1,
@@ -49,7 +49,7 @@ const Favslider = () => {
 
 
 
-    <div className="flex items-center justify-between mb-[-25px] w-[93%]">
+    <div className="flex items-center justify-between mb-[-25px] mt-8 w-[93%]">
   <p className="text-2xl font-bold text-white tracking-wide [font-family:'Orbitron',sans-serif]">
     Your Favorites
   </p>
@@ -60,7 +60,7 @@ const Favslider = () => {
     <div className="flex flex-col justify-end pb-5 pl-40 h-full">
       <Link href="/favorite">
       <button
-        className="bg-[#6716a185] text-white rounded-tl-2xl rounded-br-2xl border-2 border-white px-4 py-2 font-semibold shadow transition-all duration-300 ease-in-out
+        className="cursor-pointer bg-[#6716a185] text-white rounded-tl-2xl rounded-br-2xl border-2 border-white px-4 py-2 font-semibold shadow transition-all duration-300 ease-in-out
         hover:bg-gradient-to-r hover:from-[#7f00d4] hover:to-[#00fff2] hover:shadow-2xl
         hover:border-[#00fff2] hover:ring-4 hover:ring-[#00fff2]/40 relative overflow-hidden group"
       >

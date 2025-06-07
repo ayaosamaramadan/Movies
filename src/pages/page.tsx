@@ -61,7 +61,11 @@ const Homee = () => {
             </div>
             <div>
               <div className="flex flex-col justify-end pb-5 pl-40 h-full">
-                <button className="bg-[#6716a185] color-white rounded-tl-2xl rounded-br-2xl border-2 border-white px-4 py-2 font-semibold shadow">
+                <button
+                  className="cursor-pointer bg-[#6716a185] text-white rounded-tl-2xl rounded-br-2xl border-2 border-white px-4 py-2 font-semibold shadow transition-all duration-300 ease-in-out
+                  hover:bg-gradient-to-r hover:from-[#7f00d4] hover:to-[#00fff2] hover:shadow-2xl
+                  hover:border-[#00fff2] hover:ring-4 hover:ring-[#00fff2]/40 relative overflow-hidden group"
+                >
                   See Now
                 </button>
               </div>

@@ -24,7 +24,7 @@ const Auth = () => {
         email,
         password,
         redirect: false,
-        callbackUrl: "/profile",
+        callbackUrl: "/",
       });
     } catch (error) {
       console.error("Error during login:", error);
@@ -100,7 +100,7 @@ const Auth = () => {
             </div>
             <div className="flex">
               <button
-                onClick={() => signIn("google", { callbackUrl: "/profile" })}
+                onClick={() => signIn("google", { callbackUrl: "/" })}
                 title="btn"
                 type="button"
                 className="flex-1 bg-white hover:bg-gray-100 cursor-pointer text-gray-700 font-semibold rounded-lg flex items-center justify-center transition duration-200"
@@ -108,7 +108,7 @@ const Auth = () => {
                 <FcGoogle />
               </button>
               <button
-                onClick={() => signIn("github", { callbackUrl: "/profile" })}
+                onClick={() => signIn("github", { callbackUrl: "/" })}
                 title="btn"
                 type="button"
                 className="cursor-pointer flex-1 bg-white hover:bg-gray-100 text-gray-700 font-semibold py-2 rounded-lg flex items-center justify-center space-x-1 transition duration-200"
