@@ -1,3 +1,4 @@
+"use client";
 import { fetchAllMovies } from "@/api/fetchapi";
 import { RootState } from "@/store/store";
 import { Movie } from "@/types/movietype";
@@ -10,6 +11,7 @@ import { useSelector } from "react-redux";
 import Slider from "react-slick";
 import useCurrentUser from "../../../hooks/useCurrentUser";
 import { FaHeart, FaRegHeart } from "react-icons/fa6";
+import Link from "next/link";
 
 const Movieslider = () => {
   const page = useSelector((state: RootState) => state.movies.page);
@@ -53,6 +55,8 @@ const Movieslider = () => {
 
   
 
+ <Link
+  href="/movies">
   <span className="flex items-center gap-2">
     <span className="text-white text-sm mt-[-10px]">see more</span>
     <svg
@@ -65,6 +69,7 @@ const Movieslider = () => {
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
     </svg>
   </span>
+  </Link>
 </div>
 
       <div className="flex justify-left items-center w-[93%]">
@@ -76,38 +81,39 @@ const Movieslider = () => {
           {movies.slice(0, 4).map((movie) => (
             <div key={movie.id} className="flex flex-col items-center group relative">
                 <div className="relative w-[170px] h-[300px]">
-                <Image
-                src={
-                  movie.poster_path
-                  ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-                  : "/placeholder.png"
-                }
-                alt={movie.title}
-                fill
-                unoptimized
-                className="cursor-pointer rounded-xl shadow-2xl object-cover"
-                priority
-                />
-                {/* Hover overlay */}
-                <div className="absolute bottom-0 left-0 w-full h-1/2 bg-[#9036ccbd] bg-opacity-70 opacity-0 group-hover:opacity-100 flex flex-col justify-center items-center transition-opacity duration-300 rounded-b-xl overflow-hidden">
-                  <p className="text-white font-bold text-center px-4 truncate text-base w-full max-w-full break-words">{movie.title}</p>
-                  <div className="flex gap-3 mt-4">
-                    <p className="text-yellow-400 flex text-sm mt-1"> <IoStarSharp className="text-yellow-400 text-xl" />
-                                  {movie.vote_average ?? "N/A"}</p>
-                   
-                   
-
-                    <button
-                  onClick={() => handleAddToWatchlist(String(movie.id))}
-                  disabled={user?.favorites?.includes(movie.id)}
-                  className="mt-2 px-3 py-1 bg-blue-600 text-white rounded disabled:bg-gray-400"
-                >
-                    {user?.favorites?.includes(movie.id)
-                    ? <FaHeart className="text-red-500" />
-                    : <FaRegHeart className="text-white" />}
-                </button>
-                     </div>
-                </div>
+                  <Link href={`/movie/${movie.id}`}>
+                    <Image
+                      src={
+                        movie.poster_path
+                          ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+                          : "/placeholder.png"
+                      }
+                      alt={movie.title}
+                      fill
+                      unoptimized
+                      className="cursor-pointer rounded-xl shadow-2xl object-cover"
+                      priority
+                    />
+                  </Link>
+                  {/* Hover overlay */}
+                  <div className="absolute bottom-0 left-0 w-full h-1/2 bg-[#9036ccbd] bg-opacity-70 opacity-0 group-hover:opacity-100 flex flex-col justify-center items-center transition-opacity duration-300 rounded-b-xl overflow-hidden">
+                    <p className="text-white font-bold text-center px-4 truncate text-base w-full max-w-full break-words">{movie.title}</p>
+                    <div className="flex gap-3 mt-4">
+                      <p className="text-yellow-400 flex text-sm mt-1">
+                        <IoStarSharp className="text-yellow-400 text-xl" />
+                        {movie.vote_average ?? "N/A"}
+                      </p>
+                      <button
+                        onClick={() => handleAddToWatchlist(String(movie.id))}
+                        disabled={user?.favorites?.includes(movie.id)}
+                        className="mt-2 px-3 py-1 bg-blue-600 text-white rounded disabled:bg-gray-400"
+                      >
+                        {user?.favorites?.includes(movie.id)
+                          ? <FaHeart className="text-red-500" />
+                          : <FaRegHeart className="text-white" />}
+                      </button>
+                    </div>
+                  </div>
                 </div>
             </div>
           ))}

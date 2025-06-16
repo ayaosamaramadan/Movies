@@ -8,6 +8,8 @@ import { useParams } from "next/navigation";
 import { RootState } from "@/store/store";
 import useCurrentUser from "../../../../hooks/useCurrentUser";
 import axios from "axios";
+import Nav from "@/components/Navbar/comp/nav";
+import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
 
 const Moviedetails = () => {
   const page = useSelector((state: RootState) => state.movies.page);
@@ -42,50 +44,69 @@ const Moviedetails = () => {
 
   return (
     <>
+    <Nav/>
       {movie && (
-        <div>
-          <Image
-            src={
-              movie.poster_path
-          ? `https://image.tmdb.org/t/p/w200${movie.poster_path}`
-          : "/placeholder.png"
-            }
-            alt={movie.title ?? "Movie poster"}
-            width={100}
-            height={150}
-            unoptimized
-          />
-          <span>
-            {movie.title} ({movie.release_date})
-          </span>
-
-          <button
-            onClick={() => handleAddToWatchlist(String(movie.id))}
-            disabled={user?.favorites?.includes(movie.id)}
-            className="mt-2 px-3 py-1 bg-blue-600 text-white rounded disabled:bg-gray-400"
-          >
-            {user?.favorites?.includes(movie.id)
-              ? "In favorites"
-              : "Add favorites"}
-          </button>
-
-          {trailerUrl && (
-            <div className="mt-4">
-              <iframe
-                width="560"
-                height="315"
-                src={
-                  trailerUrl.replace("watch?v=", "embed/") +
-                  "?autoplay=1&mute=1"
-                }
-                title="YouTube trailer"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
+        <section className="relative flex flex-col md:flex-row items-center justify-center min-h-screen p-6">
+          <div className="relative w-72 h-96 md:w-80 md:h-[32rem] shadow-2xl rounded-xl overflow-hidden border-4 border-gray-200">
+            <Image
+              src={
+          movie.poster_path
+            ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+            : "/placeholder.png"
+              }
+              alt={movie.title ?? "Movie poster"}
+              fill
+              className="object-cover"
+              unoptimized
+              priority
+            />
+            <span className="absolute top-3 left-3 bg-black/70 text-white text-xs px-3 py-1 rounded-full">
+              {movie.original_language?.toUpperCase()}
+            </span>
+            <span className="absolute bottom-3 right-3 bg-yellow-400 text-gray-900 text-sm px-3 py-1 rounded-full font-bold shadow">
+              ⭐ {movie.vote_average?.toFixed(1) ?? "N/A"}
+            </span>
+          </div>
+          <div className="flex-1 flex flex-col gap-6 md:ml-12 mt-8 md:mt-0 max-w-xl">
+            <h2 className="text-4xl font-extrabold text-gray-400 drop-shadow-lg flex items-center gap-3">
+              {movie.title}
+              <span className="text-lg font-medium text-gray-100">
+          ({movie.release_date?.slice(0, 4)})
+              </span>
+            </h2>
+            <p className="text-gray-300 text-lg leading-relaxed">
+              {movie.overview || "No description available."}
+            </p>
+            <div className="flex gap-4">
+              <button
+          onClick={() => handleAddToWatchlist(String(movie.id))}
+          disabled={user?.favorites?.includes(movie.id)}
+              >
+          {user?.favorites?.includes(movie.id)
+            ? <IoIosHeart className="text-red-500" />
+            : <IoIosHeartEmpty className="text-gray-400" />}
+              </button>
+              <span className="inline-flex items-center px-4 py-2 bg-gray-100 text-gray-800 rounded-lg font-medium shadow">
+       ID: {movie.id}
+              </span>
             </div>
-          )}
-        </div>
+            {trailerUrl && (
+              <div className="mt-8 w-full rounded-xl overflow-hidden shadow-2xl border-4 border-gray-200">
+          <iframe
+            className="w-full aspect-video"
+            src={
+              trailerUrl.replace("watch?v=", "embed/") +
+              "?autoplay=1&mute=1"
+            }
+            title="YouTube trailer"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+              </div>
+            )}
+          </div>
+        </section>
       )}
     </>
   );

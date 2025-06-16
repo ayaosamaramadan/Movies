@@ -7,6 +7,9 @@ import { signOut } from "next-auth/react";
 import { MdLogout } from "react-icons/md";
 import { SiSecurityscorecard } from "react-icons/si";
 import useCurrentUser from "../../../../hooks/useCurrentUser";
+import { IoSearchSharp } from "react-icons/io5";
+import { IoMdNotifications } from "react-icons/io";
+import { FaYoutube } from "react-icons/fa6";
 const Nav = () => {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
@@ -46,62 +49,96 @@ const Nav = () => {
           signOut();
           console.log("Logged out");
         }}
+        className="fixed bottom-4 left-4 z-50 p-2 rounded-full bg-white shadow hover:bg-gray-100 transition"
       >
         <MdLogout />
       </button>
 
 
-      <div>
-        <SiSecurityscorecard />
-        {score}
+     
+      <div className="flex items-center justify-between p-4 bg-[#fc9eff07] bg-opacity-80 backdrop-blur-md shadow-md fixed top-0 left-0 w-[986px] z-50">
+      <div className="flex items-center gap-3">
+        <Image
+          src="/logo.webp"
+          alt="MovieApp Logo"
+          width={40}
+          height={40}
+          className="rounded-full shadow"
+          unoptimized
+        />
+        <span className="text-xl font-bold text-white tracking-wide">Movies</span>
       </div>
-      <div>
-        <div className="w-full max-w-md">
+
+
+        <div className="relative flex-1 max-w-md">
           <form
-            className="flex items-center mb-4"
+            className="flex items-center relative"
             onSubmit={(e) => e.preventDefault()}
+            autoComplete="off"
           >
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 z-10">
+              <IoSearchSharp />
+            </span>
             <input
               type="text"
-              placeholder="Search for a movie..."
-              className="input input-bordered w-full"
+              placeholder="Search for movie..."
+              className="py-2 pl-10 pr-4 w-full rounded-full bg-[#fc9eff57] bg-opacity-80 backdrop-blur-md focus:outline-none focus:ring-2 focus:ring-purple-600 transition"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
+              aria-label="Search for movie"
             />
           </form>
-        </div>
-        <div className="fixed p-4 rounded-lg shadow-md mt-4">
-          {loading ? (
-            <span className="text-gray-400">Searching...</span>
-          ) : results.length > 0 ? (
-            <ul>
-              {results.map((movie: Movie) => (
-                <li key={movie.id} className="flex items-center mb-2">
+            {query.trim().length > 0 && (
+            <div className="absolute left-0 right-0 mt-2 bg-[#f9b7ffda] bg-opacity-60 backdrop-blur-md rounded-lg shadow-lg z-50 max-h-72 overflow-y-auto">
+              {loading ? (
+                <div className="p-4 text-white text-center font-semibold drop-shadow">Searching...</div>
+                ) : results.length > 0 ? (
+                <ul className="bg-gradient-to-br from-[#642c69] via-[#40174270] to-[#b7eaff] bg-opacity-80 rounded-lg shadow-lg">
+                {results.map((movie: Movie) => (
+                <li
+                  key={movie.id}
+                  className="flex items-center gap-3 px-4 py-2 hover:bg-purple-100/80 transition cursor-pointer group"
+                  tabIndex={0}
+                  aria-label={movie.title}
+                >
                   {movie.poster_path ? (
                     <Image
-                      width={92}
-                      height={136}
-                      src={
-                        movie.poster_path
-                          ? `https://image.tmdb.org/t/p/w200${movie.poster_path}`
-                          : "/placeholder.png"
-                      }
+                      width={40}
+                      height={60}
+                      src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
                       alt={movie.title || "Movie poster"}
+                      className="rounded shadow bg-gray-100"
                       unoptimized
                     />
                   ) : (
-                    <div className="w-12 h-16 bg-gray-200 rounded mr-3 flex items-center justify-center text-xs text-gray-400">
+                    <div className="w-10 h-14 bg-gray-200 rounded flex items-center justify-center text-xs text-gray-500">
                       No Image
                     </div>
                   )}
-                  <span>{movie.title}</span>
+                  <div className="flex flex-col min-w-0">
+                    <span className="truncate font-medium text-white drop-shadow group-hover:text-black">{movie.title}</span>
+                    {movie.release_date && (
+                      <span className="text-xs text-purple-200 drop-shadow group-hover:text-black">{movie.release_date}</span>
+                    )}
+                  </div>
                 </li>
-              ))}
-            </ul>
-          ) : query.trim().length > 1 ? (
-            <span className="text-gray-400">No results</span>
-          ) : null}
+                ))}
+                </ul>
+                ) : (
+                <div className="p-4 text-white text-center font-semibold drop-shadow">No results</div>
+              )}
+            </div>
+            )}
         </div>
+    
+
+      <div className="flex items-center gap-4">
+        <SiSecurityscorecard className="text-[#39ff14] text-xl [filter:drop-shadow(0_0_6px_currentColor)_drop-shadow(0_0_12px_currentColor)]" />
+        <span className="text-[#39ff14] font-bold text-lg [filter:drop-shadow(0_0_6px_currentColor)_drop-shadow(0_0_12px_currentColor)]">{score}</span>
+        <FaYoutube className="text-[#ff073a] text-2xl [filter:drop-shadow(0_0_6px_currentColor)_drop-shadow(0_0_12px_currentColor)]" />
+        <IoMdNotifications className="text-[#00eaff] text-2xl [filter:drop-shadow(0_0_6px_currentColor)_drop-shadow(0_0_12px_currentColor)]" />
+      </div>
+      
       </div>
     </>
   );

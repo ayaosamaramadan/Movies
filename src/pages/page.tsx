@@ -1,36 +1,15 @@
 import "../../styles/globals.css";
-
 import Image from "next/image";
-
 import { IoStarSharp } from "react-icons/io5";
-
-// import useCurrentUser from "../../hooks/useCurrentUser";
-
-// import axios from "axios";
-
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Movieslider from "./home/Movieslider";
 import Favslider from "./home/Favslider";
 
 const Homee = () => {
-  // const { currentUser: user } = useCurrentUser();
-
-  // const handleAddToWatchlater = async (movieId: string) => {
-  //   try {
-  //     await axios.post("/api/watchlaterr/add", { movieId: movieId });
-  //     alert("Added to watch later!");
-  //   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  //   } catch (error) {
-  //     alert("Failed to add to watch later");
-  //   }
-  // };
-
   return (
     <>
-      <div className="ml-32">
-      
-      
+      <div className="ml-32 mt-28">
         <div className="flex justify-left items-center ">
           <div className="flex rounded-4xl w-[90%] bg-gradient-to-r from-[#7f00d4] via-[#9e0cff85] to-[#ab42f1]">
             <div>
@@ -76,10 +55,9 @@ const Homee = () => {
         {/* movie slider */}
         <Movieslider />
 
-{/* fav slider */}
+        {/* fav slider */}
 
-<Favslider/>
-       
+        <Favslider />
       </div>
     </>
   );

@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { nextPage, prevPage } from "@/store/movieSlice";
 import { Movie } from "@/types/movietype";
-import useCurrentUser from "../../hooks/useCurrentUser";
+import useCurrentUser from "../../../hooks/useCurrentUser";
 import Link from "next/link";
 import axios from "axios";
 
@@ -45,17 +45,7 @@ const Allmovie = () => {
         <p>Loading...</p>
       ) : (
         <>
-          <Link
-          href="/profile"
-        >
-         <button> account</button>
-        </Link>
-        
-          <p>Welcome {user?.name}! Here are the movies available:</p>
-
-        
-
-       
+               
 
           <div className="flex justify-between mb-4">
             <button
