@@ -35,7 +35,7 @@ const Nav = () => {
                   <MdMail className="text-white mb-10 text-2xl hover:text-yellow-400 transition-colors duration-300" />
                 </Link>
 
-                <Link href="/section6">
+                <Link href="/help">
                   <FaMessage className="text-white mb-10 text-2xl hover:text-yellow-400 transition-colors duration-300" />
                 </Link>
               </div>
