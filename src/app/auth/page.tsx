@@ -16,6 +16,7 @@ const Auth = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     alert(isLogin ? "Logging in..." : "Signing up...");
+
   };
 
   const login = useCallback(async () => {
@@ -23,7 +24,7 @@ const Auth = () => {
       await signIn("credentials", {
         email,
         password,
-        redirect: false,
+        
         callbackUrl: "/",
       });
     } catch (error) {

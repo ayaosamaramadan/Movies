@@ -10,6 +10,7 @@ import useCurrentUser from "../../../../hooks/useCurrentUser";
 import axios from "axios";
 import Nav from "@/components/Navbar/comp/nav";
 import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
+import Comments from "@/components/Comments";
 
 const Moviedetails = () => {
   const page = useSelector((state: RootState) => state.movies.page);
@@ -41,6 +42,8 @@ const Moviedetails = () => {
       alert("Failed to add to watchlist");
     }
   };
+
+
 
   return (
     <>
@@ -119,6 +122,8 @@ const Moviedetails = () => {
               </span>
             </div>
           </div>
+
+         <Comments movieId={String(movie?.id ?? "")} />
         </section>
       )}
     </>
