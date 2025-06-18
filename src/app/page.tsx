@@ -23,14 +23,14 @@ export default function Home() {
 
   return (
     <>
-      <Topnav/>
-      <Navbar />
-      <div className="flex ">
+      <div className="fixed z-20">
+        <Navbar />
+      </div>
+      <Topnav />
+      <div className="flex mt-32">
         <Homee />
-        <div
-          className="fixed right-0 top-0 h-[100vh] p-4 shadow-lg rounded-lg bg-[radial-gradient(circle,rgba(255,188,188,0.27)_0%,rgba(0,0,0,0)_100%)]"
-        >
-         <Profile/>
+        <div className="fixed right-0 top-0 h-[100vh] p-4 shadow-lg rounded-lg bg-[radial-gradient(circle,rgba(255,188,188,0.27)_0%,rgba(0,0,0,0)_100%)]">
+          <Profile />
         </div>
       </div>
     </>

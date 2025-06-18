@@ -10,7 +10,7 @@ import { GiTentacleHeart } from "react-icons/gi";
 const Nav = () => {
   return (
     <>
-      <header className="rounded-br-4xl rounded-tr-4xl fixed pt-15 mt-32 bg-[#7f00d4] opacity-90 w-auto hover:w-[250px] duration-300 ease-in-out z-10 sm:w-[80px] sm:hover:w-[250px]">
+      <header className="rounded-br-4xl rounded-tr-4xl fixed pt-15 bg-[#7f00d4] opacity-90 w-auto hover:w-[250px] duration-300 ease-in-out z-10 sm:w-[80px] sm:hover:w-[250px]">
         <div>
           <ul>
             <li>

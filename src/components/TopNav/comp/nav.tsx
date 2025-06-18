@@ -56,7 +56,7 @@ const Nav = () => {
 
 
      
-      <div className="flex items-center justify-between p-4 bg-[#fc9eff07] bg-opacity-80 backdrop-blur-md shadow-md fixed top-0 left-0 w-[986px] z-50">
+      <div className="flex items-center justify-between p-4 bg-[#fc9eff07] bg-opacity-80 backdrop-blur-md shadow-md fixed top-0 w-full left-0 z-50">
       <div className="flex items-center gap-3">
         <Image
           src="/logo.webp"

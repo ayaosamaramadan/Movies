@@ -51,8 +51,6 @@ const Form = () => {
       return;
     }
 
-
-
     if (!formRef.current) return;
 
     emailjs
@@ -111,7 +109,7 @@ const Form = () => {
             onChange={handleChange}
             className={`playfair-display border ${
               errors.name ? "border-red-500" : "border-gray-300"
-            } rounded-lg p-2 text-black font-MyFont placeholder-gray-700`}
+            } rounded-lg p-2 text-black font-MyFont placeholder-gray-500 bg-white`}
           />
           {errors.name && (
             <p className="playfair-display text-red-500 text-sm mt-1">
@@ -129,7 +127,7 @@ const Form = () => {
             onChange={handleChange}
             className={`playfair-display border ${
               errors.email ? "border-red-500" : "border-gray-300"
-            } rounded-lg p-2 text-black placeholder-gray-700`}
+            } rounded-lg p-2 text-black placeholder-gray-500 bg-white`}
           />
           {errors.email && (
             <p className="playfair-display text-red-500 text-sm mt-1">
@@ -147,7 +145,7 @@ const Form = () => {
             onChange={handleChange}
             className={`border ${
               errors.message ? "border-red-500" : "border-gray-300"
-            } rounded-lg p-2 text-black placeholder-gray-700`}
+            } rounded-lg p-2 text-black placeholder-gray-500 bg-white`}
           ></textarea>
           {errors.message && (
             <p className="text-red-500 text-sm mt-1">{errors.message}</p>
@@ -156,7 +154,7 @@ const Form = () => {
 
         <button
           type="submit"
-          className="playfair-display w-full bg-gradient-to-r from-[#9005DE] to-[#7A04B3] text-white hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-[#7A04B3] focus:ring-opacity-50 shadow-lg shadow-[#7A04B3] font-bold rounded-lg py-2 px-4 transition duration-200"
+          className="playfair-display w-full bg-gradient-to-r from-[#46036d] to-[#703fb1] text-white hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-[#7A04B3] focus:ring-opacity-50 shadow-lg shadow-[#7A04B3] font-bold rounded-lg py-2 px-4 transition duration-200"
         >
           {isLoading ? (
             <>

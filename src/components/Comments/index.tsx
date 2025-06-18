@@ -15,7 +15,7 @@ export default function Comments({ movieId }: { movieId: string }) {
     if (!text.trim()) return;
     await axios.post("/api/comment/add", { movieId, comment: text });
     setText("");
-    // إعادة جلب التعليقات
+  
     axios.get(`/api/comment/${movieId}`).then(res => setComments(res.data));
   };
 

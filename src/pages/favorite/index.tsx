@@ -37,8 +37,8 @@ const Favouritepage = () => {
   };
   return (
     <>
-    <Navbar/>
-      <div className="mb-6 p-4 rounded">
+    <div className="z-20 fixed mt-32"><Navbar/></div>
+      <div className=" mb-6 p-4 rounded">
         <h2 className="text-2xl font-extrabold mb-6 bg-gradient-to-r from-[#7f00d4] via-[#9e0cff] to-[#00fff2] bg-clip-text text-transparent drop-shadow-lg tracking-widest uppercase font-orbitron text-center">
           Your Watchlist
         </h2>

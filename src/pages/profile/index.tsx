@@ -24,7 +24,7 @@ const Profile = () => {
 
   return (
     <>
-      <div className="container mx-auto p-4">
+      <div className="container mt-20 mx-auto p-4">
         <div className=" justify-between flex items-center gap-2 mb-4">
           <h1 className="text-2xl font-bold">My Profile</h1>
           <PiDotsThreeOutlineFill className="text-2xl" />

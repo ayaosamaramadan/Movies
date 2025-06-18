@@ -9,7 +9,7 @@ import Favslider from "./home/Favslider";
 const Homee = () => {
   return (
     <>
-      <div className="ml-32 mt-28">
+      <div className="ml-32">
         <div className="flex justify-left items-center ">
           <div className="flex rounded-4xl w-[90%] bg-gradient-to-r from-[#7f00d4] via-[#9e0cff85] to-[#ab42f1]">
             <div>
