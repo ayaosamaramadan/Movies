@@ -16,17 +16,17 @@ const Nav = () => {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
 
-    const { currentUser: user } = useCurrentUser();
+  const { currentUser: user } = useCurrentUser();
 
-    const [score, setScore] = useState(0);
+  const [score, setScore] = useState(0);
 
-    useEffect(() => {
-      if (user && user.favorites) {
-        setScore(user.favorites.length);
-      } else {
-        setScore(0);
-      }
-    }, [user]);
+  useEffect(() => {
+    if (user && user.favorites) {
+      setScore(user.favorites.length);
+    } else {
+      setScore(0);
+    }
+  }, [user]);
 
   useEffect(() => {
     if (query.trim().length < 1) {
@@ -55,27 +55,22 @@ const Nav = () => {
         <MdLogout />
       </button>
 
-
-     
       <div className=" flex items-center justify-between p-4 bg-[#fc9eff07] bg-opacity-80 backdrop-blur-md shadow-md fixed top-0 w-full left-0 z-50">
-     <Link
-     href="/"
-     >
-      <div className="cursor-pointer flex items-center gap-3 group transition-all duration-300">
-        <Image
-          src="/logo.webp"
-          alt="MovieApp Logo"
-          width={40}
-          height={40}
-          className="rounded-full shadow group-hover:scale-110 group-hover:ring-4 group-hover:ring-purple-400 transition-all duration-300"
-          unoptimized
-        />
-        <span className="text-xl font-bold text-white tracking-wide group-hover:text-purple-300 group-hover:drop-shadow-lg transition-all duration-300">
-          Movies
-        </span>
-      </div>
-      </Link>
-
+        <Link href="/">
+          <div className="cursor-pointer flex items-center gap-3 group transition-all duration-300">
+            <Image
+              src="/logo.webp"
+              alt="MovieApp Logo"
+              width={40}
+              height={40}
+              className="rounded-full shadow group-hover:scale-110 group-hover:ring-4 group-hover:ring-purple-400 transition-all duration-300"
+              unoptimized
+            />
+            <span className="text-xl font-bold text-white tracking-wide group-hover:text-purple-300 group-hover:drop-shadow-lg transition-all duration-300">
+              Movies
+            </span>
+          </div>
+        </Link>
 
         <div className="relative flex-1 max-w-md">
           <form
@@ -95,57 +90,66 @@ const Nav = () => {
               aria-label="Search for movie"
             />
           </form>
-            {query.trim().length > 0 && (
+          {query.trim().length > 0 && (
             <div className="absolute left-0 right-0 mt-2 bg-[#f9b7ffda] bg-opacity-60 backdrop-blur-md rounded-lg shadow-lg z-50 max-h-72 overflow-y-auto">
               {loading ? (
-                <div className="p-4 text-white text-center font-semibold drop-shadow"> Searching ...</div>
-                ) : results.length > 0 ? (
+                <div className="p-4 text-white text-center font-semibold drop-shadow">
+                  {" "}
+                  Searching ...
+                </div>
+              ) : results.length > 0 ? (
                 <ul className="bg-gradient-to-br from-[#642c69] via-[#40174270] to-[#b7eaff] bg-opacity-80 rounded-lg shadow-lg">
-                {results.map((movie: Movie) => (
-                <li
-                  key={movie.id}
-                  className="flex items-center gap-3 px-4 py-2 hover:bg-purple-100/80 transition cursor-pointer group"
-                  tabIndex={0}
-                  aria-label={movie.title}
-                >
-                  {movie.poster_path ? (
-                    <Image
-                      width={40}
-                      height={60}
-                      src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
-                      alt={movie.title || "Movie poster"}
-                      className="rounded shadow bg-gray-100"
-                      unoptimized
-                    />
-                  ) : (
-                    <div className="w-10 h-14 bg-gray-200 rounded flex items-center justify-center text-xs text-gray-500">
-                      No Image
-                    </div>
-                  )}
-                  <div className="flex flex-col min-w-0">
-                    <span className="truncate font-medium text-white drop-shadow group-hover:text-black">{movie.title}</span>
-                    {movie.release_date && (
-                      <span className="text-xs text-purple-200 drop-shadow group-hover:text-black">{movie.release_date}</span>
-                    )}
-                  </div>
-                </li>
-                ))}
+                  {results.map((movie: Movie) => (
+                    <li
+                      key={movie.id}
+                      className="flex items-center gap-3 px-4 py-2 hover:bg-purple-100/80 transition cursor-pointer group"
+                      tabIndex={0}
+                      aria-label={movie.title}
+                    >
+                      {movie.poster_path ? (
+                        <Image
+                          width={40}
+                          height={60}
+                          src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
+                          alt={movie.title || "Movie poster"}
+                          className="rounded shadow bg-gray-100"
+                          unoptimized
+                        />
+                      ) : (
+                        <div className="w-10 h-14 bg-gray-200 rounded flex items-center justify-center text-xs text-gray-500">
+                          No Image
+                        </div>
+                      )}
+                      <div className="flex flex-col min-w-0">
+                        <span className="truncate font-medium text-white drop-shadow group-hover:text-black">
+                          {movie.title}
+                        </span>
+                        {movie.release_date && (
+                          <span className="text-xs text-purple-200 drop-shadow group-hover:text-black">
+                            {movie.release_date}
+                          </span>
+                        )}
+                      </div>
+                    </li>
+                  ))}
                 </ul>
-                ) : (
-                <div className="p-4 text-white text-center font-semibold drop-shadow">No results</div>
+              ) : (
+                <div className="p-4 text-white text-center font-semibold drop-shadow">
+                  No results
+                </div>
               )}
             </div>
-            )}
+          )}
         </div>
-    
 
-      <div className="flex items-center gap-4">
-        <SiSecurityscorecard className="text-[#39ff14] text-xl [filter:drop-shadow(0_0_6px_currentColor)_drop-shadow(0_0_12px_currentColor)]" />
-        <span className="text-[#39ff14] font-bold text-lg [filter:drop-shadow(0_0_6px_currentColor)_drop-shadow(0_0_12px_currentColor)]">{score}</span>
-        <FaYoutube className="text-[#ff073a] text-2xl [filter:drop-shadow(0_0_6px_currentColor)_drop-shadow(0_0_12px_currentColor)]" />
-        <IoMdNotifications className="text-[#00eaff] text-2xl [filter:drop-shadow(0_0_6px_currentColor)_drop-shadow(0_0_12px_currentColor)]" />
-      </div>
-      
+        <div className="flex items-center gap-4">
+          <SiSecurityscorecard className="text-[#39ff14] text-xl [filter:drop-shadow(0_0_6px_currentColor)_drop-shadow(0_0_12px_currentColor)]" />
+          <span className="text-[#39ff14] font-bold text-lg [filter:drop-shadow(0_0_6px_currentColor)_drop-shadow(0_0_12px_currentColor)]">
+            {score}
+          </span>
+          <FaYoutube className="text-[#ff073a] text-2xl [filter:drop-shadow(0_0_6px_currentColor)_drop-shadow(0_0_12px_currentColor)]" />
+          <IoMdNotifications className="text-[#00eaff] text-2xl [filter:drop-shadow(0_0_6px_currentColor)_drop-shadow(0_0_12px_currentColor)]" />
+        </div>
       </div>
     </>
   );
