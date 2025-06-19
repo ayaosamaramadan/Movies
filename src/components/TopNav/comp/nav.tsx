@@ -50,9 +50,10 @@ const Nav = () => {
           signOut();
           console.log("Logged out");
         }}
-        className="fixed bottom-4 left-4 z-50 p-2 rounded-full bg-white shadow hover:bg-gray-100 transition"
+        className="fixed bottom-4 left-3 z-50 p-3 rounded-full bg-gradient-to-br from-purple-500 via-pink-400 to-yellow-300 shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200 border-2 border-white/80"
+        aria-label="Logout"
       >
-        <MdLogout />
+        <MdLogout className="text-2xl text-white drop-shadow" />
       </button>
 
       <div className=" flex items-center justify-between p-4 bg-[#fc9eff07] bg-opacity-80 backdrop-blur-md shadow-md fixed top-0 w-full left-0 z-50">
@@ -142,7 +143,7 @@ const Nav = () => {
           )}
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center mr-5 gap-5">
           <SiSecurityscorecard className="text-[#39ff14] text-xl [filter:drop-shadow(0_0_6px_currentColor)_drop-shadow(0_0_12px_currentColor)]" />
           <span className="text-[#39ff14] font-bold text-lg [filter:drop-shadow(0_0_6px_currentColor)_drop-shadow(0_0_12px_currentColor)]">
             {score}
