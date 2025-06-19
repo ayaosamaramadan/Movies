@@ -3,6 +3,7 @@ import useCurrentUser from "../../../hooks/useCurrentUser";
 import { NextPageContext } from "next";
 import Image from "next/image";
 import { PiDotsThreeOutlineFill } from "react-icons/pi";
+import { MdAlternateEmail } from "react-icons/md";
 
 export async function getServerSideProps(context: NextPageContext) {
   const session = await getSession(context);
@@ -55,7 +56,10 @@ const Profile = () => {
                 )}
               </div>
             </div>
-            <p>Email: {user.email}</p>
+            <div className="flex items-center gap-2 mt-2">
+              <span className="font-medium text-gray-300"><MdAlternateEmail /></span>
+              <span className="text-gray-300 break-all">{user.email}</span>
+            </div>
 
             <div className="mt-6 tcard tcard-bordered p-4">
               <h3 className="text-lg font-semibold mb-2">

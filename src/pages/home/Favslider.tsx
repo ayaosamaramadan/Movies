@@ -49,7 +49,7 @@ const Favslider = () => {
 
 
 
-    <div className="flex items-center justify-between mb-[-25px] mt-8 w-[93%]">
+    <div className="flex items-center justify-between mb-[-25px] mt-8 w-[89%]">
   <p className="text-2xl font-bold text-white tracking-wide [font-family:'Orbitron',sans-serif]">
     Your Favorites
   </p>

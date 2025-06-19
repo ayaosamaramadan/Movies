@@ -10,6 +10,7 @@ import useCurrentUser from "../../../../hooks/useCurrentUser";
 import { IoSearchSharp } from "react-icons/io5";
 import { IoMdNotifications } from "react-icons/io";
 import { FaYoutube } from "react-icons/fa6";
+import Link from "next/link";
 const Nav = () => {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
@@ -56,18 +57,24 @@ const Nav = () => {
 
 
      
-      <div className="flex items-center justify-between p-4 bg-[#fc9eff07] bg-opacity-80 backdrop-blur-md shadow-md fixed top-0 w-full left-0 z-50">
-      <div className="flex items-center gap-3">
+      <div className=" flex items-center justify-between p-4 bg-[#fc9eff07] bg-opacity-80 backdrop-blur-md shadow-md fixed top-0 w-full left-0 z-50">
+     <Link
+     href="/"
+     >
+      <div className="cursor-pointer flex items-center gap-3 group transition-all duration-300">
         <Image
           src="/logo.webp"
           alt="MovieApp Logo"
           width={40}
           height={40}
-          className="rounded-full shadow"
+          className="rounded-full shadow group-hover:scale-110 group-hover:ring-4 group-hover:ring-purple-400 transition-all duration-300"
           unoptimized
         />
-        <span className="text-xl font-bold text-white tracking-wide">Movies</span>
+        <span className="text-xl font-bold text-white tracking-wide group-hover:text-purple-300 group-hover:drop-shadow-lg transition-all duration-300">
+          Movies
+        </span>
       </div>
+      </Link>
 
 
         <div className="relative flex-1 max-w-md">
@@ -91,7 +98,7 @@ const Nav = () => {
             {query.trim().length > 0 && (
             <div className="absolute left-0 right-0 mt-2 bg-[#f9b7ffda] bg-opacity-60 backdrop-blur-md rounded-lg shadow-lg z-50 max-h-72 overflow-y-auto">
               {loading ? (
-                <div className="p-4 text-white text-center font-semibold drop-shadow">Searching...</div>
+                <div className="p-4 text-white text-center font-semibold drop-shadow"> Searching ...</div>
                 ) : results.length > 0 ? (
                 <ul className="bg-gradient-to-br from-[#642c69] via-[#40174270] to-[#b7eaff] bg-opacity-80 rounded-lg shadow-lg">
                 {results.map((movie: Movie) => (

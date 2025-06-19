@@ -48,28 +48,31 @@ const Movieslider = () => {
     };
   return (
     <>
-    <div className="flex items-center justify-between mt-10 mb-[-25px] w-[93%]">
+    <div className="flex items-center justify-between mt-10 mb-[-25px] w-[90%]">
   <p className="text-2xl font-bold text-white tracking-wide [font-family:'Orbitron',sans-serif]">
     Recent Movies
   </p>
 
   
 
- <Link
-  href="/movies">
-  <span className="flex items-center gap-2">
-    <span className="text-white text-sm mt-[-10px]">see more</span>
+<Link
+  href="/movies"
+  className="group relative"
+>
+  <span className="flex items-center gap-1 transition-transform duration-300 group-hover:scale-105 group-hover:translate-x-1">
+    <span className="text-white text-sm mr-2 mt-[-10px] group-hover:text-purple-400 transition-colors duration-300">see more</span>
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className="h-6 w-6 text-white animate-bounce"
+      className="h-6 w-6 text-white animate-bounce group-hover:text-purple-400 transition-colors duration-300"
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
     >
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
     </svg>
+    <span className="absolute left-0 -bottom-1 w-full h-0.5 bg-purple-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded"></span>
   </span>
-  </Link>
+</Link>
 </div>
 
       <div className="flex justify-left items-center w-[93%]">
