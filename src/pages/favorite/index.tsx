@@ -7,6 +7,7 @@ import axios from "axios";
 import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import "../../../styles/globals.css";
+import { toast } from "react-toastify";
 
 const Favouritepage = () => {
   const [allMovies, setAllMovies] = useState<Movie[]>([]);
@@ -32,7 +33,9 @@ const Favouritepage = () => {
       mutate();
     } catch (error) {
       console.error("Failed to remove from watchlist:", error);
-      alert("Failed to remove from watchlist");
+      toast.error(
+        "Failed to remove from watchlist. Please try again."
+      );
     }
   };
   return (

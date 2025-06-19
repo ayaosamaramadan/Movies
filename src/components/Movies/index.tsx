@@ -11,6 +11,7 @@ import Link from "next/link";
 import axios from "axios";
 import Topnav from "../TopNav";
 import Navbar from "../Navbar";
+import { toast } from "react-toastify";
 
 const Allmovie = () => {
   const dispatch = useDispatch();
@@ -30,10 +31,10 @@ const Allmovie = () => {
   const handleAddToWatchlater = async (movieId: string) => {
     try {
       await axios.post("/api/watchlaterr/add", { movieId: movieId });
-      alert("Added to watch later!");
+      toast.success("Added to watch later!");
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
-      alert("Failed to add to watch later");
+      toast.error("Failed to add to watch later. Please try again.");
     }
   };
 

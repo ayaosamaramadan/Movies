@@ -5,6 +5,7 @@ import { signIn } from "next-auth/react";
 // import { useRouter } from "next/navigation";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const Auth = () => {
   // const router = useRouter();
@@ -15,7 +16,7 @@ const Auth = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    alert(isLogin ? "Logging in..." : "Signing up...");
+    toast.info("Processing your request...");
 
   };
 
@@ -27,8 +28,9 @@ const Auth = () => {
         
         callbackUrl: "/",
       });
-    } catch (error) {
-      console.error("Error during login:", error);
+    } catch {
+      console.error("Error during login");
+      toast.error("failed to login. Please try again");
     }
   }, [email, password]);
 
@@ -41,9 +43,14 @@ const Auth = () => {
       });
 
       login();
-      console.log("Registration successful:", response.data);
+      if (response.status === 201) {
+        toast.success("Registration successful! Redirecting to login...");
+      } else {
+        toast.error("Registration failed. Please try again");
+      }
     } catch (error) {
       console.error("Error during registration:", error);
+      toast.error("Registration failed. Please try again");
     }
   }, [name, email, password, login]);
 

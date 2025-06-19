@@ -12,6 +12,7 @@ import Slider from "react-slick";
 import useCurrentUser from "../../../hooks/useCurrentUser";
 import { FaHeart, FaRegHeart } from "react-icons/fa6";
 import Link from "next/link";
+import { toast } from "react-toastify";
 
 const Movieslider = () => {
   const page = useSelector((state: RootState) => state.movies.page);
@@ -40,10 +41,10 @@ const Movieslider = () => {
     const handleAddToWatchlist = async (movieId: string) => {
       try {
        await axios.post("/api/favorite/add", { movieId:movieId });
-        alert("Added to watchlist!");
+        toast.success("Added to watchlist!");
            // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (error) {
-        alert("Failed to add to watchlist");
+        toast.error("Failed to add to watchlist. Please try again.");
       }
     };
   return (

@@ -7,6 +7,7 @@ import axios from "axios";
 import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
+import { toast } from "react-toastify";
 
 const Watchlatepage = () => {
   const [allMovies, setAllMovies] = useState<Movie[]>([]);
@@ -32,7 +33,9 @@ const Watchlatepage = () => {
       mutate();
     } catch (error) {
       console.error("Failed to remove from watchlist:", error);
-      alert("Failed to remove from watchlist");
+     toast.error(
+        "Failed to remove from watchlist. Please try again."
+      );
     }
   };
   return (

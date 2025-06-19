@@ -11,6 +11,7 @@ import axios from "axios";
 import Nav from "@/components/Navbar/comp/nav";
 import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
 import Comments from "@/components/Comments";
+import { toast } from "react-toastify";
 
 const Moviedetails = () => {
   const page = useSelector((state: RootState) => state.movies.page);
@@ -36,10 +37,10 @@ const Moviedetails = () => {
   const handleAddToWatchlist = async (movieId: string) => {
     try {
       await axios.post("/api/favorite/add", { movieId: movieId });
-      alert("Added to watchlist!");
+      toast.success("Added to watchlist!");
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
-      alert("Failed to add to watchlist");
+      toast.error("Failed to add to watchlist. Please try again.");
     }
   };
 
