@@ -1,11 +1,11 @@
 "use client";
-import { fetchAllMovies, fetchMovieTrailer } from "@/api/fetchapi";
+import { fetchMovieById, fetchMovieTrailer } from "@/api/fetchapi";
 import { Movie } from "@/types/movietype";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import { useParams } from "next/navigation";
-import { RootState } from "@/store/store";
+// import { RootState } from "@/store/store";
 import useCurrentUser from "../../../../hooks/useCurrentUser";
 import axios from "axios";
 import Nav from "@/components/Navbar/comp/nav";
@@ -14,19 +14,17 @@ import Comments from "@/components/Comments";
 import { toast } from "react-toastify";
 
 const Moviedetails = () => {
-  const page = useSelector((state: RootState) => state.movies.page);
-  const [movie, setMovie] = useState<Movie | null>(null);
-  const [trailerUrl, setTrailerUrl] = useState<string | null>(null);
-  const { id } = useParams() as { id?: Movie };
+  // const page = useSelector((state: RootState) => state.movies.page);
+  const { id } = useParams() as { id?: string };
 
   const { currentUser: user } = useCurrentUser();
+  const [movie, setMovie] = useState<Movie | null>(null);
+  const [trailerUrl, setTrailerUrl] = useState<string | null>(null);
 
   useEffect(() => {
-    fetchAllMovies(page).then((results: Movie[]) => {
-      const found = results.find((m) => String(m.id) === String(id));
-      setMovie(found || null);
-    });
-  }, [page, id]);
+    if (!id) return;
+    fetchMovieById(id).then((data) => setMovie(data));
+  }, [id]);
 
   useEffect(() => {
     if (movie?.id) {
@@ -43,8 +41,6 @@ const Moviedetails = () => {
       toast.error("Failed to add to watchlist. Please try again.");
     }
   };
-
-
 
   return (
     <>
@@ -124,7 +120,7 @@ const Moviedetails = () => {
             </div>
           </div>
 
-         <Comments movieId={String(movie?.id ?? "")} />
+          <Comments movieId={String(movie?.id ?? "")} />
         </section>
       )}
     </>

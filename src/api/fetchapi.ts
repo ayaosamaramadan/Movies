@@ -53,7 +53,6 @@ export async function fetchAllMoviesAllPages() {
 }
 
 export async function fetchMovieTrailer(movieId: string | number) {
-
   const url = `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${API_KEY}`;
   const response = await fetch(url);
   if (!response.ok) throw new Error("Failed to fetch trailer");
@@ -64,4 +63,11 @@ export async function fetchMovieTrailer(movieId: string | number) {
     (vid: any) => vid.type === "Trailer" && vid.site === "YouTube"
   );
   return trailer ? `https://www.youtube.com/watch?v=${trailer.key}` : null;
+}
+
+export async function fetchMovieById(id: string) {
+  const res = await fetch(
+    `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=en-US`
+  );
+  return await res.json();
 }
