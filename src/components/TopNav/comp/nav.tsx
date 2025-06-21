@@ -95,12 +95,13 @@ const Nav = () => {
             <div className="absolute left-0 right-0 mt-2 bg-[#f9b7ffda] bg-opacity-60 backdrop-blur-md rounded-lg shadow-lg z-50 max-h-72 overflow-y-auto">
               {loading ? (
                 <div className="p-4 text-white text-center font-semibold drop-shadow">
-                  {" "}
                   Searching ...
                 </div>
               ) : results.length > 0 ? (
                 <ul className="bg-gradient-to-br from-[#642c69] via-[#40174270] to-[#b7eaff] bg-opacity-80 rounded-lg shadow-lg">
-                  {results.map((movie: Movie) => (
+                  {results.map((movie: Movie) => (<>
+                     <Link href={`/movie/${movie.id}`}>
+                        
                     <li
                       key={movie.id}
                       className="flex items-center gap-3 px-4 py-2 hover:bg-purple-100/80 transition cursor-pointer group"
@@ -108,14 +109,15 @@ const Nav = () => {
                       aria-label={movie.title}
                     >
                       {movie.poster_path ? (
-                        <Image
-                          width={40}
-                          height={60}
-                          src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
-                          alt={movie.title || "Movie poster"}
-                          className="rounded shadow bg-gray-100"
-                          unoptimized
-                        />
+                         <Image
+                            width={40}
+                            height={60}
+                            src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
+                            alt={movie.title || "Movie poster"}
+                            className="rounded shadow bg-gray-100"
+                            unoptimized
+                          />
+                     
                       ) : (
                         <div className="w-10 h-14 bg-gray-200 rounded flex items-center justify-center text-xs text-gray-500">
                           No Image
@@ -132,6 +134,8 @@ const Nav = () => {
                         )}
                       </div>
                     </li>
+                  </Link>
+                  </>
                   ))}
                 </ul>
               ) : (

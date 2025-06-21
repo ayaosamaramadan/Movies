@@ -2,13 +2,11 @@
 import React, { useCallback, useState } from "react";
 import axios from "axios";
 import { signIn } from "next-auth/react";
-// import { useRouter } from "next/navigation";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import { toast } from "react-toastify";
 
 const Auth = () => {
-  // const router = useRouter();
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,7 +15,6 @@ const Auth = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     toast.info("Processing your request...");
-
   };
 
   const login = useCallback(async () => {
@@ -25,7 +22,7 @@ const Auth = () => {
       await signIn("credentials", {
         email,
         password,
-        
+
         callbackUrl: "/",
       });
     } catch {

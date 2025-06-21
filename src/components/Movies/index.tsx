@@ -26,7 +26,7 @@ const Allmovie = () => {
     fetchAllMovies(page)
       .then((results: Movie[]) => setMovies(results))
       .finally(() => setLoading(false));
-    window.scrollTo(0, 0); // <-- Add this line
+    window.scrollTo(0, 0);
   }, [page]);
 
   const handleAddToWatchlater = async (movieId: string) => {

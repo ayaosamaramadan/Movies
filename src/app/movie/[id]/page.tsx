@@ -1,25 +1,24 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import { fetchMovieById, fetchMovieTrailer } from "@/api/fetchapi";
 import { Movie } from "@/types/movietype";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-// import { useSelector } from "react-redux";
 import { useParams } from "next/navigation";
-// import { RootState } from "@/store/store";
 import useCurrentUser from "../../../../hooks/useCurrentUser";
 import axios from "axios";
 import Nav from "@/components/Navbar/comp/nav";
 import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
 import Comments from "@/components/Comments";
 import { toast } from "react-toastify";
+import Topnav from "@/components/TopNav";
 
 const Moviedetails = () => {
-  // const page = useSelector((state: RootState) => state.movies.page);
   const { id } = useParams() as { id?: string };
-
-  const { currentUser: user } = useCurrentUser();
+  const { currentUser: user, mutate } = useCurrentUser();
   const [movie, setMovie] = useState<Movie | null>(null);
   const [trailerUrl, setTrailerUrl] = useState<string | null>(null);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
     if (!id) return;
@@ -32,22 +31,44 @@ const Moviedetails = () => {
     }
   }, [movie?.id]);
 
+  useEffect(() => {
+    if (user && movie) {
+      setIsFavorite(user.favorites.includes(String(movie.id)));
+    }
+  }, [user, movie]);
+
   const handleAddToWatchlist = async (movieId: string) => {
     try {
-      await axios.post("/api/favorite/add", { movieId: movieId });
+      await axios.post("/api/favorite/add", { movieId });
+      setIsFavorite(true);
       toast.success("Added to watchlist!");
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      if (typeof mutate === "function") mutate();
     } catch (error) {
       toast.error("Failed to add to watchlist. Please try again.");
     }
   };
 
+  const handleRemoveFromWatchlist = async (movieId: string) => {
+    try {
+      await axios.post("/api/favorite/remove", { movieId });
+      setIsFavorite(false);
+      toast.success("Removed from watchlist!");
+      if (typeof mutate === "function") mutate();
+    } catch (error) {
+      toast.error("Failed to remove from watchlist. Please try again.");
+    }
+  };
+
   return (
     <>
-      <Nav />
+      <Topnav />
+      <div className="z-50 fixed mt-32">
+        <Nav />
+      </div>
+
       {movie && (
-        <section className="relative flex flex-col md:flex-row items-center justify-center min-h-screen p-6">
-          <div className="relative w-72 h-96 md:w-80 md:h-[32rem] shadow-2xl rounded-xl overflow-hidden border-4 border-gray-200">
+        <section className="flex flex-col md:flex-row items-center justify-center min-h-screen p-6">
+          <div className="relative w-72 h-96 md:w-80 md:h-[32rem] shadow-2xl rounded-2xl overflow-hidden border-4 border-gray-800 bg-gray-900/80 flex-shrink-0">
             <Image
               src={
                 movie.poster_path
@@ -60,17 +81,17 @@ const Moviedetails = () => {
               unoptimized
               priority
             />
-
-            <span className="absolute top-3 left-3 bg-black/70 text-white text-xs px-3 py-1 rounded-full">
+            <span className="absolute top-3 left-3 bg-black/80 text-white text-xs px-3 py-1 rounded-full shadow-lg tracking-widest font-semibold">
               {movie.original_language?.toUpperCase()}
             </span>
-            <span className="absolute bottom-3 right-3 bg-yellow-400 text-gray-900 text-sm px-3 py-1 rounded-full font-bold shadow">
+            <span className="absolute bottom-3 right-3 bg-yellow-400 text-gray-900 text-sm px-3 py-1 rounded-full font-bold shadow-lg">
               ⭐ {movie.vote_average?.toFixed(1) ?? "N/A"}
             </span>
           </div>
-          <div className="flex-1 flex flex-col gap-6 md:ml-12 mt-8 md:mt-0 max-w-xl">
+
+          <div className="flex-1 flex flex-col gap-8 md:ml-16 mt-10 md:mt-0 max-w-2xl overflow-auto max-h-full rounded-2xl p-10 shadow-xl border border-gray-800/70">
             {trailerUrl && (
-              <div className="mt-8 w-full rounded-xl overflow-hidden shadow-2xl border-4 border-gray-200">
+              <div className="w-full rounded-xl overflow-hidden shadow border border-gray-700 mb-6">
                 <iframe
                   className="w-full aspect-video"
                   src={
@@ -86,41 +107,43 @@ const Moviedetails = () => {
                 ></iframe>
               </div>
             )}
-            <h2 className="text-4xl font-extrabold text-gray-100 drop-shadow-lg flex items-center gap-3">
-              {movie.title}
-              {movie.release_date && (
-                <span className="text-lg font-medium text-gray-300 ml-2">
-                  ({movie.release_date.slice(0, 4)})
-                </span>
-              )}
-            </h2>
-            <p className="text-gray-300 text-lg leading-relaxed">
+            <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-6 w-full">
+              <h2 className="text-4xl md:text-5xl font-extrabold text-yellow-300 drop-shadow-lg tracking-tight flex-1">
+                {movie.title}
+              </h2>
+              <div className="flex items-center gap-3 mt-2 md:mt-0">
+                <button
+                  onClick={() =>
+                    isFavorite
+                      ? handleRemoveFromWatchlist(String(movie.id))
+                      : handleAddToWatchlist(String(movie.id))
+                  }
+                  aria-label={
+                    isFavorite ? "Remove from watchlist" : "Add to watchlist"
+                  }
+                  className="focus:outline-none transition-transform hover:scale-110"
+                >
+                  {isFavorite ? (
+                    <IoIosHeart className="text-red-500 text-3xl md:text-4xl" />
+                  ) : (
+                    <IoIosHeartEmpty className="text-gray-400 text-3xl md:text-4xl" />
+                  )}
+                </button>
+                {movie.release_date && (
+                  <span className="text-base md:text-xl font-semibold text-gray-300 bg-gray-900 px-3 py-1 rounded-lg shadow">
+                    {movie.release_date.slice(0, 4)}
+                  </span>
+                )}
+              </div>
+            </div>
+            <p className="text-gray-300 text-base md:text-lg leading-relaxed font-medium border-l-4 border-yellow-500 pl-4 bg-gray-900/70 rounded-lg py-2 shadow">
               {movie.overview?.trim() || "No description available."}
             </p>
-            <div className="flex gap-4 items-center">
-              <button
-                onClick={() => handleAddToWatchlist(String(movie.id))}
-                disabled={!!user?.favorites?.includes(movie.id)}
-                aria-label={
-                  user?.favorites?.includes(movie.id)
-                    ? "Remove from watchlist"
-                    : "Add to watchlist"
-                }
-                className="focus:outline-none"
-              >
-                {user?.favorites?.includes(movie.id) ? (
-                  <IoIosHeart className="text-red-500 text-2xl transition" />
-                ) : (
-                  <IoIosHeartEmpty className="text-gray-400 text-2xl transition hover:text-red-400" />
-                )}
-              </button>
-              <span className="inline-flex items-center px-4 py-2 bg-gray-100 text-gray-800 rounded-lg font-medium shadow">
-                ID: {movie.id}
-              </span>
+
+            <div className="mt-10">
+              <Comments movieId={String(movie?.id ?? "")} />
             </div>
           </div>
-
-          <Comments movieId={String(movie?.id ?? "")} />
         </section>
       )}
     </>

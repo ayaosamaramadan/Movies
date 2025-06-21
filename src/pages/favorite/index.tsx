@@ -8,6 +8,7 @@ import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import "../../../styles/globals.css";
 import { toast } from "react-toastify";
+import Link from "next/link";
 
 const Favouritepage = () => {
   const [allMovies, setAllMovies] = useState<Movie[]>([]);
@@ -108,12 +109,17 @@ const Favouritepage = () => {
                       </p>
                     </div>
                     <div className="flex flex-col justify-end pr-8 pb-8 gap-4">
-                      <button
+                   <button
                         type="button"
                         className="bg-[#6716a1] text-white rounded-tl-2xl rounded-br-2xl border border-white px-0 cursor-pointer py-3 font-semibold shadow-lg hover:bg-[#7f00d4] hover:scale-105 hover:shadow-xl text-lg transition-all duration-300"
-                      >
+                      >   <Link
+                        href={`/movie/${movie.id}`}
+                     
+                      
+                     >
                         See Now
-                      </button>
+                      </Link>  </button>
+                    
                       <button
                         onClick={() => handleRovWatchlist(String(movie.id))}
                         className="cursor-pointer bg-red-500 text-white rounded-tl-2xl rounded-br-2xl border border-white px-6 py-3 font-semibold shadow-lg hover:bg-red-600 hover:scale-105 hover:shadow-xl text-base transition-all duration-300"

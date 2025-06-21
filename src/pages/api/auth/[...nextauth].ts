@@ -7,7 +7,6 @@ import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
-// عرّف authOptions وصدّره
 export const authOptions = {
   providers: [
     GithubProvider({
@@ -70,5 +69,4 @@ export const authOptions = {
   adapter: PrismaAdapter(prismadb),
 };
 
-// استخدم authOptions مع NextAuth
 export default NextAuth(authOptions);
