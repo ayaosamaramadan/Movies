@@ -1,36 +1,39 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎬 MovieApp
 
-## Getting Started
+Discover **MovieApp** – your ultimate destination for browsing, saving, and organizing your favorite movies with ease and style.
 
-First, run the development server:
+## 🖼️ Screenshots
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+| Home | Movies |
+|:----:|:------:|
+| ![home](https://github.com/user-attachments/assets/88ee9de5-b1bc-4281-8112-7f1a2fc9f22a) | ![movies](https://github.com/user-attachments/assets/874cce2a-11df-4926-ae39-3e4becf02d18) |
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+| Movie Details | Favorites |
+|:-------------:|:---------:|
+| ![moviedetails](https://github.com/user-attachments/assets/53b8838e-0de4-4032-8394-1c835c68fea3) | ![fav](https://github.com/user-attachments/assets/fe580b8b-0bce-473d-8bb6-e4c8f9bfdeb8) |
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Watch Later | Help |
+|:-----------:|:----:|
+| ![watchlater](https://github.com/user-attachments/assets/5ec81826-8bc2-45ea-aa6b-cce89aaf0009) | ![help](https://github.com/user-attachments/assets/d506251a-6fa8-4b57-879e-0add74c7b01f) |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Login |
+|:-----:|
+| ![login](https://github.com/user-attachments/assets/51e3599f-cefb-42de-9d98-a6519b5a7805) |
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🚀 Features
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- 🔍 **Browse Movies:** Discover trending and top-rated films.
+- 🎬 **Movie Details:** Dive deep into movie info, cast, and more.
+- ❤️ **Favorites:** Save your favorite movies for quick access.
+- ⏰ **Watch Later:** Build your personal watchlist.
+- 🔐 **User Authentication:** Secure login and personalized experience.
+- 🗄️ **MongoDB Integration:** Fast and flexible database access using MongoDB.
+- 🛢️ **Prisma ORM:** Type-safe database queries and seamless integration with MongoDB.
+- 🌐 **TMDb API:** Fetches up-to-date movie data from The Movie Database (TMDb).
+- 📱 **Responsive UI:** Enjoy a seamless experience on any device.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Enjoy exploring movies with **MovieApp**! 🍿
