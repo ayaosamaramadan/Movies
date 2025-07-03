@@ -11,23 +11,70 @@ const Auth = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     toast.info("Processing your request...");
   };
 
-  const login = useCallback(async () => {
+  // Updated social login handler
+  const handleSocialLogin = async (provider: "google" | "github") => {
     try {
-      await signIn("credentials", {
-        email,
-        password,
+      setIsLoading(true);
 
+      const result = await signIn(provider, {
+        redirect: false,
         callbackUrl: "/",
       });
+
+      if (result?.error) {
+        // Check if it's our custom provider mismatch error
+        if (
+          result.error.includes(
+            "We were unable to log you in with that login method"
+          )
+        ) {
+          toast.error(result.error, {
+            position: "top-right",
+            autoClose: 8000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+          });
+        } else {
+          toast.error("Authentication failed. Please try again.");
+        }
+      } else if (result?.url) {
+        // Successful login, redirect
+        window.location.href = result.url;
+      }
+    } catch (error) {
+      console.error("Social login error:", error);
+      toast.error("An unexpected error occurred. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const login = useCallback(async () => {
+    try {
+      const result = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+        callbackUrl: "/",
+      });
+
+      if (result?.error) {
+        toast.error("Invalid email or password");
+      } else if (result?.url) {
+        window.location.href = result.url;
+      }
     } catch {
       console.error("Error during login");
-      toast.error("failed to login. Please try again");
+      toast.error("Failed to login. Please try again");
     }
   }, [email, password]);
 
@@ -39,9 +86,9 @@ const Auth = () => {
         password,
       });
 
-      login();
       if (response.status === 201) {
-        toast.success("Registration successful! Redirecting to login...");
+        toast.success("Registration successful! Logging you in...");
+        await login();
       } else {
         toast.error("Registration failed. Please try again");
       }
@@ -103,24 +150,31 @@ const Auth = () => {
                 placeholder="Enter your password"
               />
             </div>
-            <div className="flex">
+
+            {/* Updated social login buttons */}
+            <div className="flex gap-2">
               <button
-                onClick={() => signIn("google", { callbackUrl: "/" })}
-                title="btn"
+                onClick={() => handleSocialLogin("google")}
+                title="Google Login"
                 type="button"
-                className="flex-1 bg-white hover:bg-gray-100 cursor-pointer text-gray-700 font-semibold rounded-lg flex items-center justify-center transition duration-200"
+                disabled={isLoading}
+                className="flex-1 bg-white hover:bg-gray-100 cursor-pointer text-gray-700 font-semibold py-2 rounded-lg flex items-center justify-center transition duration-200 border disabled:opacity-50"
               >
-                <FcGoogle />
+                <FcGoogle className="text-xl" />
+                <span className="ml-2">Google</span>
               </button>
               <button
-                onClick={() => signIn("github", { callbackUrl: "/" })}
-                title="btn"
+                onClick={() => handleSocialLogin("github")}
+                title="GitHub Login"
                 type="button"
-                className="cursor-pointer flex-1 bg-white hover:bg-gray-100 text-gray-700 font-semibold py-2 rounded-lg flex items-center justify-center space-x-1 transition duration-200"
+                disabled={isLoading}
+                className="cursor-pointer flex-1 bg-white hover:bg-gray-100 text-gray-700 font-semibold py-2 rounded-lg flex items-center justify-center transition duration-200 border disabled:opacity-50"
               >
-                <FaGithub />
+                <FaGithub className="text-xl" />
+                <span className="ml-2">GitHub</span>
               </button>
             </div>
+
             <button
               type="submit"
               onClick={isLogin ? login : register}
