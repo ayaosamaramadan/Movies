@@ -9,7 +9,6 @@ export async function getServerSideProps(context: NextPageContext) {
   const session = await getSession(context);
   if (!session) {
     return {
-      
       redirect: {
         destination: "/auth",
         permanent: false,
@@ -26,65 +25,73 @@ const Profile = () => {
 
   return (
     <>
-      <div className="container mt-20 mx-auto p-8 max-w-[320px]">
-        <div className=" justify-between flex items-center gap-2 mb-4">
-          <h1 className="text-2xl font-bold">My Profile</h1>
-          <PiDotsThreeOutlineFill className="text-2xl" />
+      <div className="container mt-20 mx-auto p-6 max-w-sm rounded-2xl shadow-xl">
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-3xl font-extrabold text-white tracking-tight">
+            My Profile
+          </h1>
+          <button
+            title="btn"
+            className="p-2 rounded-full hover:bg-gray-700 transition"
+          >
+            <PiDotsThreeOutlineFill className="text-2xl text-gray-300" />
+          </button>
         </div>
         {user ? (
           <>
-            <div className="flex items-center gap-6 tcard tcard-bordered p-4 mb-4">
-              <div className="w-24 h-24 rounded-full overflow-hidden flex-shrink-0">
+            <div className="flex flex-col items-center gap-3 tcard tcard-bordered bg-[#0000000e] rounded-xl p-6 mb-6 shadow">
+              <div className="w-28 h-28 rounded-full overflow-hidden border-4 border-purple-500 shadow-lg mb-2">
                 <Image
                   src={user.image || "https://via.placeholder.com/150"}
                   alt="User Avatar"
-                  width={96}
-                  height={96}
+                  width={112}
+                  height={112}
                   style={{ objectFit: "cover" }}
                 />
               </div>
-              <div>
+              <div className="text-center">
                 {user.name && (
                   <>
-                    <h2 className="text-xl font-semibold">
+                    <h2 className="text-2xl font-bold text-white">
                       {user.name.split(" ")[0]}
                     </h2>
-                    <h2 className="font-semibold text-xl">
+                    <h2 className="font-semibold text-lg text-gray-300">
                       {user.name.split(" ").slice(1).join(" ")}
                     </h2>
                   </>
                 )}
               </div>
+              <div className="flex items-center gap-2 mt-2">
+                <MdAlternateEmail className="text-blue-400" />
+                <span className="text-gray-300 break-all text-sm">
+                  {user.email}
+                </span>
+              </div>
             </div>
-            <div className="flex items-center gap-2 mt-2">
-              <span className="font-medium text-gray-300"><MdAlternateEmail /></span>
-              <span className="text-gray-300 break-all">{user.email}</span>
-            </div>
-
-            <div className="mt-6 tcard tcard-bordered p-4">
-              <h3 className="text-lg font-semibold mb-2">
+            <div className="mt-4 tcard tcard-bordered bg-[#0000000e] rounded-xl p-5 shadow">
+              <h3 className="text-lg font-semibold mb-3 text-white">
                 Additional Information
               </h3>
-              <ul className="list-disc list-inside space-y-1">
-                <li>
-                  <span className="font-medium">Joined:</span>
-                  <span className="text-gray-700">
+              <ul className="space-y-2">
+                <li className="flex items-center gap-2">
+                  <span className="font-medium text-gray-400">Joined:</span>
+                  <span className="text-gray-200">
                     {user.createdAt
                       ? new Date(user.createdAt).toLocaleDateString()
                       : "N/A"}
                   </span>
                 </li>
-                <li>
-                  <span className="font-medium">Role:</span>
-                  <span className="text-blue-700">{user.role || "User"}</span>
+                <li className="flex items-center gap-2">
+                  <span className="font-medium text-gray-400">Role:</span>
+                  <span className="text-blue-400">{user.role || "User"}</span>
                 </li>
-                <li>
-                  <span className="font-medium">Status:</span>
+                <li className="flex items-center gap-2">
+                  <span className="font-medium text-gray-400">Status:</span>
                   <span
                     className={
                       user.emailVerified
-                        ? "text-green-600 font-semibold"
-                        : "text-yellow-600 font-semibold"
+                        ? "text-green-400 font-semibold"
+                        : "text-yellow-400 font-semibold"
                     }
                   >
                     {user.emailVerified ? "Verified" : "Not Verified"}
@@ -94,7 +101,7 @@ const Profile = () => {
             </div>
           </>
         ) : (
-          <p className="text-red-500">You are not logged in.</p>
+          <p className="text-red-500 text-center">You are not logged in.</p>
         )}
       </div>
     </>

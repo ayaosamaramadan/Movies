@@ -43,8 +43,7 @@ const Nav = () => {
 
   return (
     <>
-    
-    <Logout />
+      <Logout />
 
       <div className=" flex items-center justify-between p-4 bg-[#fc9eff07] bg-opacity-80 backdrop-blur-md shadow-md fixed top-0 w-full left-0 z-50">
         <Link href="/">
@@ -89,17 +88,19 @@ const Nav = () => {
                 </div>
               ) : results.length > 0 ? (
                 <ul className="bg-gradient-to-br from-[#642c69] via-[#40174270] to-[#b7eaff] bg-opacity-80 rounded-lg shadow-lg">
-                  {results.map((movie: Movie) => (<>
-                     <Link href={`/movie/${movie.id}`}>
-                        
+                  {results.map((movie: Movie) => (
                     <li
-                      key={movie.id}
+                      key={movie.id} // Move key to li element
                       className="flex items-center gap-3 px-4 py-2 hover:bg-purple-100/80 transition cursor-pointer group"
                       tabIndex={0}
                       aria-label={movie.title}
                     >
-                      {movie.poster_path ? (
-                         <Image
+                      <Link
+                        href={`/movie/${movie.id}`}
+                        className="flex items-center gap-3 w-full"
+                      >
+                        {movie.poster_path ? (
+                          <Image
                             width={40}
                             height={60}
                             src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
@@ -107,25 +108,23 @@ const Nav = () => {
                             className="rounded shadow bg-gray-100"
                             unoptimized
                           />
-                     
-                      ) : (
-                        <div className="w-10 h-14 bg-gray-200 rounded flex items-center justify-center text-xs text-gray-500">
-                          No Image
-                        </div>
-                      )}
-                      <div className="flex flex-col min-w-0">
-                        <span className="truncate font-medium text-white drop-shadow group-hover:text-black">
-                          {movie.title}
-                        </span>
-                        {movie.release_date && (
-                          <span className="text-xs text-purple-200 drop-shadow group-hover:text-black">
-                            {movie.release_date}
-                          </span>
+                        ) : (
+                          <div className="w-10 h-14 bg-gray-200 rounded flex items-center justify-center text-xs text-gray-500">
+                            No Image
+                          </div>
                         )}
-                      </div>
+                        <div className="flex flex-col min-w-0">
+                          <span className="truncate font-medium text-white drop-shadow group-hover:text-black">
+                            {movie.title}
+                          </span>
+                          {movie.release_date && (
+                            <span className="text-xs text-purple-200 drop-shadow group-hover:text-black">
+                              {movie.release_date}
+                            </span>
+                          )}
+                        </div>
+                      </Link>
                     </li>
-                  </Link>
-                  </>
                   ))}
                 </ul>
               ) : (

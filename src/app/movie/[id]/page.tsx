@@ -71,13 +71,13 @@ const Moviedetails = () => {
       </div>
 
       {movie && (
-        <section className="mt-20 flex flex-col md:flex-row items-center justify-center min-h-screen p-6">
-          <div className="mt-[-510px] relative w-72 h-96 md:w-80 md:h-[32rem] shadow-2xl rounded-2xl overflow-hidden border-4 border-gray-800 bg-gray-900/80 flex-shrink-0">
+        <section className="mt-24 flex flex-col md:flex-row items-start justify-center min-h-screen p-6">
+          <div className="relative w-72 h-96 md:w-80 md:h-[32rem] shadow-2xl rounded-3xl overflow-hidden border-4 border-yellow-500 bg-gray-400/90 flex-shrink-0 transition-transform hover:scale-105 duration-300">
             <Image
               src={
-                movie.poster_path
-                  ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-                  : "/placeholder.png"
+          movie.poster_path
+            ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+            : "/placeholder.png"
               }
               alt={movie.title ?? "Movie poster"}
               fill
@@ -85,62 +85,62 @@ const Moviedetails = () => {
               unoptimized
               priority
             />
-            <span className="absolute top-3 left-3 bg-black/80 text-white text-xs px-3 py-1 rounded-full shadow-lg tracking-widest font-semibold">
+            <span className="absolute top-3 left-3 bg-black/80 text-yellow-300 text-xs px-3 py-1 rounded-full shadow-lg tracking-widest font-semibold border border-yellow-400">
               {movie.original_language?.toUpperCase()}
             </span>
-            <span className="absolute bottom-3 right-3 bg-yellow-400 text-gray-900 text-sm px-3 py-1 rounded-full font-bold shadow-lg">
+            <span className="absolute bottom-3 right-3 bg-yellow-400 text-gray-900 text-sm px-3 py-1 rounded-full font-bold shadow-lg border border-yellow-300">
               ⭐ {movie.vote_average?.toFixed(1) ?? "N/A"}
             </span>
           </div>
 
-          <div className="flex-1 flex flex-col gap-8 md:ml-16 mt-10 md:mt-0 max-w-2xl overflow-auto max-h-full rounded-2xl p-10 shadow-xl border border-gray-800/70">
+          <div className="flex-1 flex flex-col gap-8 md:ml-16 mt-10 md:mt-0 max-w-2xl overflow-auto max-h-full rounded-3xl p-10 shadow-2xl border border-yellow-900/40 bg-gray-900/80 backdrop-blur-lg">
             {trailerUrl && (
-              <div className="w-full rounded-xl overflow-hidden shadow border border-gray-700 mb-6">
-                <iframe
-                  className="w-full aspect-video"
-                  src={
-                    trailerUrl.includes("embed/")
-                      ? trailerUrl
-                      : trailerUrl.replace("watch?v=", "embed/") +
-                        "?autoplay=1&mute=1"
-                  }
-                  title={`${movie.title} Trailer`}
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
+              <div className="w-full rounded-xl overflow-hidden shadow-lg border-2 border-yellow-700 mb-6">
+          <iframe
+            className="w-full aspect-video"
+            src={
+              trailerUrl.includes("embed/")
+                ? trailerUrl
+                : trailerUrl.replace("watch?v=", "embed/") +
+            "?autoplay=1&mute=1"
+            }
+            title={`${movie.title} Trailer`}
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
               </div>
             )}
             <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-6 w-full">
-              <h2 className="text-4xl md:text-5xl font-extrabold text-yellow-300 drop-shadow-lg tracking-tight flex-1">
-                {movie.title}
+              <h2 className="text-4xl md:text-5xl font-extrabold text-yellow-300 drop-shadow-xl tracking-tight flex-1">
+          {movie.title}
               </h2>
               <div className="flex items-center gap-3 mt-2 md:mt-0">
-                <button
-                  onClick={() =>
-                    isFavorite
-                      ? handleRemoveFromWatchlist(String(movie.id))
-                      : handleAddToWatchlist(String(movie.id))
-                  }
-                  aria-label={
-                    isFavorite ? "Remove from watchlist" : "Add to watchlist"
-                  }
-                  className="focus:outline-none transition-transform hover:scale-110"
-                >
-                  {isFavorite ? (
-                    <IoIosHeart className="text-red-500 text-3xl md:text-4xl" />
-                  ) : (
-                    <IoIosHeartEmpty className="text-gray-400 text-3xl md:text-4xl" />
-                  )}
-                </button>
-                {movie.release_date && (
-                  <span className="text-base md:text-xl font-semibold text-gray-300 bg-gray-900 px-3 py-1 rounded-lg shadow">
-                    {movie.release_date.slice(0, 4)}
-                  </span>
-                )}
+          <button
+            onClick={() =>
+              isFavorite
+                ? handleRemoveFromWatchlist(String(movie.id))
+                : handleAddToWatchlist(String(movie.id))
+            }
+            aria-label={
+              isFavorite ? "Remove from watchlist" : "Add to watchlist"
+            }
+            className="focus:outline-none transition-transform hover:scale-125 duration-200"
+          >
+            {isFavorite ? (
+              <IoIosHeart className="text-red-500 text-3xl md:text-4xl drop-shadow" />
+            ) : (
+              <IoIosHeartEmpty className="text-yellow-200 text-3xl md:text-4xl drop-shadow" />
+            )}
+          </button>
+          {movie.release_date && (
+            <span className="text-base md:text-xl font-semibold text-yellow-200 bg-gray-800 px-3 py-1 rounded-lg shadow border border-yellow-400">
+              {movie.release_date.slice(0, 4)}
+            </span>
+          )}
               </div>
             </div>
-            <p className="text-gray-300 text-base md:text-lg leading-relaxed font-medium border-l-4 border-yellow-500 pl-4 bg-gray-900/70 rounded-lg py-2 shadow">
+            <p className="text-gray-200 text-base md:text-lg leading-relaxed font-medium border-l-4 border-yellow-500 pl-4 bg-gray-900/80 rounded-lg py-2 shadow-inner">
               {movie.overview?.trim() || "No description available."}
             </p>
 

@@ -1,11 +1,7 @@
 @import "tailwindcss";
-
 :root {
   --background: #ffffff;
-  --foreground: #171717;
-}
-
-
+  --foreground: #171717;}
 @media (prefers-color-scheme: dark) {
   :root {
     --background: linear-gradient(135deg, #3c074d 0%, #3a0479 50%, #1d8ba3 100%);
@@ -16,33 +12,11 @@
     --background-attachment: fixed;
     --backdrop-filter: blur(8px);
    
-    --backdrop-blur: blur(8px);
-   
-  }
-}
-
+    --backdrop-blur: blur(8px);}}
 body {
   background: var(--background);
   color: var(--foreground);
   margin: 0;
   padding: 0;
   font-family: Arial, Helvetica, sans-serif;
-  min-height: 100vh;
-}
-
-
-.toast-container {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: #000;
-  border: 1px solid #ffffff;
-  background-color: #ffffff00;
-  color: white;
-  font-family: playfair-display;
-  text-align: center;
-  padding: 16px;
-  border-radius: 5px;
-  z-index: 1000;
-  box-shadow: #ffffff2a 5px 10px 50px;
-}
+  min-height: 100vh;}

@@ -20,7 +20,10 @@ export default function RootLayout({
         <Providers>{children}</Providers>
         <ToastContainer
           position="top-center"
-          
+          theme="dark"
+          autoClose={3000}
+          hideProgressBar={true}
+
           className={"toast-container"}
         />
       </body>
