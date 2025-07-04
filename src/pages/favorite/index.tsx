@@ -9,6 +9,7 @@ import Navbar from "@/components/Navbar";
 import "../../../styles/globals.css";
 import { toast } from "react-toastify";
 import Link from "next/link";
+import Topnav from "@/components/TopNav";
 
 const Favouritepage = () => {
   const [allMovies, setAllMovies] = useState<Movie[]>([]);
@@ -41,10 +42,12 @@ const Favouritepage = () => {
   };
   return (
     <>
-      <div className="z-20 fixed mt-32">
+  
+      <Topnav />
+      <div className="z-20 fixed mt-13">
         <Navbar />
       </div>
-      <div className=" mb-6 p-4 rounded">
+      <div className=" mb-6 mt-20 p-4 rounded">
         <h2 className="text-2xl font-extrabold mb-6 bg-gradient-to-r from-[#7f00d4] via-[#9e0cff] to-[#00fff2] bg-clip-text text-transparent drop-shadow-lg tracking-widest uppercase font-orbitron text-center">
           Your Watchlist
         </h2>

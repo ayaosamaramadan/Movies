@@ -8,6 +8,7 @@ import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
 import { toast } from "react-toastify";
+import Topnav from "@/components/TopNav";
 
 const Watchlatepage = () => {
   const [allMovies, setAllMovies] = useState<Movie[]>([]);
@@ -40,9 +41,11 @@ const Watchlatepage = () => {
   };
   return (
     <>
-      <div className="fixed z-20 mt-20"><Navbar />
+      <Topnav />
+      <div className="z-20 fixed">
+        <Navbar />
       </div>
-      <div className="mt-12 mx-auto max-w-4xl p-8 rounded-2xl bg-[#18122B] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] border border-[#635985] relative overflow-hidden">
+      <div className="mt-32 mx-auto max-w-4xl p-8 rounded-2xl bg-[#18122B] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] border border-[#635985] relative overflow-hidden">
         <div className="absolute -top-10 -right-10 w-40 h-40 bg-gradient-to-br from-[#00fff2]/30 via-[#7f00d4]/20 to-transparent rounded-full blur-2xl pointer-events-none" />
         <h2 className="text-4xl font-black mb-8 text-center text-[#00fff2] font-orbitron tracking-widest drop-shadow-lg flex items-center justify-center gap-4">
           <svg

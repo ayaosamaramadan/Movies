@@ -3,14 +3,13 @@ import { useState, useEffect } from "react";
 import { searchMovies } from "@/api/fetchapi";
 import { Movie } from "@/types/movietype";
 import Image from "next/image";
-import { signOut } from "next-auth/react";
-import { MdLogout } from "react-icons/md";
 import { SiSecurityscorecard } from "react-icons/si";
 import useCurrentUser from "../../../../hooks/useCurrentUser";
 import { IoSearchSharp } from "react-icons/io5";
 import { IoMdNotifications } from "react-icons/io";
 import { FaYoutube } from "react-icons/fa6";
 import Link from "next/link";
+import Logout from "@/components/Logout";
 const Nav = () => {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
@@ -44,17 +43,8 @@ const Nav = () => {
 
   return (
     <>
-      <button
-        title="Logout"
-        onClick={() => {
-          signOut();
-          console.log("Logged out");
-        }}
-        className="fixed bottom-4 left-3 z-50 p-3 rounded-full bg-gradient-to-br from-purple-500 via-pink-400 to-yellow-300 shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200 border-2 border-white/80"
-        aria-label="Logout"
-      >
-        <MdLogout className="text-2xl text-white drop-shadow" />
-      </button>
+    
+    <Logout />
 
       <div className=" flex items-center justify-between p-4 bg-[#fc9eff07] bg-opacity-80 backdrop-blur-md shadow-md fixed top-0 w-full left-0 z-50">
         <Link href="/">

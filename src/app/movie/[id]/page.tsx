@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import { fetchMovieById, fetchMovieTrailer } from "@/api/fetchapi";
 import { Movie } from "@/types/movietype";
@@ -16,6 +15,7 @@ import Topnav from "@/components/TopNav";
 const Moviedetails = () => {
   const { id } = useParams() as { id?: string };
   const { currentUser: user, mutate } = useCurrentUser();
+
   const [movie, setMovie] = useState<Movie | null>(null);
   const [trailerUrl, setTrailerUrl] = useState<string | null>(null);
   const [isFavorite, setIsFavorite] = useState(false);
@@ -33,7 +33,7 @@ const Moviedetails = () => {
 
   useEffect(() => {
     if (user && movie) {
-      setIsFavorite(user.favorites.includes(String(movie.id)));
+      setIsFavorite(user.favorites?.includes(String(movie.id)) || false);
     }
   }, [user, movie]);
 
@@ -42,19 +42,23 @@ const Moviedetails = () => {
       await axios.post("/api/favorite/add", { movieId });
       setIsFavorite(true);
       toast.success("Added to watchlist!");
-      if (typeof mutate === "function") mutate();
+      if (typeof mutate === "function") await mutate();
     } catch (error) {
+      console.error("Error adding to watchlist:", error);
       toast.error("Failed to add to watchlist. Please try again.");
     }
   };
 
   const handleRemoveFromWatchlist = async (movieId: string) => {
     try {
-      await axios.post("/api/favorite/remove", { movieId });
+      await axios.delete("/api/favorite/remove", {
+        data: { movieId },
+      });
       setIsFavorite(false);
       toast.success("Removed from watchlist!");
-      if (typeof mutate === "function") mutate();
+      if (typeof mutate === "function") await mutate();
     } catch (error) {
+      console.error("Error removing from watchlist:", error);
       toast.error("Failed to remove from watchlist. Please try again.");
     }
   };
@@ -62,13 +66,13 @@ const Moviedetails = () => {
   return (
     <>
       <Topnav />
-      <div className="z-50 fixed mt-32">
+      <div className="z-50 fixed mt-12">
         <Nav />
       </div>
 
       {movie && (
-        <section className="flex flex-col md:flex-row items-center justify-center min-h-screen p-6">
-          <div className="relative w-72 h-96 md:w-80 md:h-[32rem] shadow-2xl rounded-2xl overflow-hidden border-4 border-gray-800 bg-gray-900/80 flex-shrink-0">
+        <section className="mt-20 flex flex-col md:flex-row items-center justify-center min-h-screen p-6">
+          <div className="mt-[-510px] relative w-72 h-96 md:w-80 md:h-[32rem] shadow-2xl rounded-2xl overflow-hidden border-4 border-gray-800 bg-gray-900/80 flex-shrink-0">
             <Image
               src={
                 movie.poster_path

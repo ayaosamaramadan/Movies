@@ -12,6 +12,7 @@ import axios from "axios";
 import Topnav from "../TopNav";
 import Navbar from "../Navbar";
 import { toast } from "react-toastify";
+import Load from "../spener";
 
 const Allmovie = () => {
   const dispatch = useDispatch();
@@ -42,7 +43,7 @@ const Allmovie = () => {
   return (
     <>
       {loading ? (
-        <p>Loading...</p>
+        <Load/>
       ) : (
         <>
           <Topnav />
@@ -135,7 +136,7 @@ const Allmovie = () => {
                 <button
                   onClick={() => handleAddToWatchlater(String(movie.id))}
                   disabled={user?.watchlist?.includes(movie.id)}
-                  className="mt-2 w-full px-3 py-1 flex items-center justify-center gap-2 border border-yellow-400 text-yellow-600 rounded-lg font-medium hover:bg-yellow-50 hover:scale-105 hover:shadow-xl transition disabled:border-gray-300 disabled:text-gray-400 ml-2"
+                  className="cursor-pointer mt-2 w-full px-3 py-1 flex items-center justify-center gap-2 border border-yellow-400 text-yellow-600 rounded-lg font-medium hover:bg-yellow-50 hover:scale-105 hover:shadow-xl transition disabled:border-gray-300 disabled:text-gray-400 ml-2"
                   title={
                     user?.watchlist?.includes(movie.id)
                       ? "Already added to Watch Later"
